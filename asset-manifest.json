@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/stake_unstake/static/js/main.be51b17a.js",
-    "index.html": "/stake_unstake/index.html",
-    "main.be51b17a.js.map": "/stake_unstake/static/js/main.be51b17a.js.map"
+    "main.js": "/blockchain-learning-week-6/static/js/main.be51b17a.js",
+    "index.html": "/blockchain-learning-week-6/index.html",
+    "main.be51b17a.js.map": "/blockchain-learning-week-6/static/js/main.be51b17a.js.map"
   },
   "entrypoints": [
     "static/js/main.be51b17a.js"
