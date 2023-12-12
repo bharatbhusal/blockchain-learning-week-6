@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/stake_unstake/static/js/main.be51b17a.js",
+    "index.html": "/stake_unstake/index.html",
+    "main.be51b17a.js.map": "/stake_unstake/static/js/main.be51b17a.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.be51b17a.js"
+  ]
+}
