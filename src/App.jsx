@@ -1,8 +1,12 @@
 import React from 'react'
+import { ConnectWallet } from './ConnectWallet.jsx'
 
 const App = () => {
   return (
-    <div>Hello World!!</div>
+    <div>
+
+      <ConnectWallet />
+    </div>
   )
 }
 
