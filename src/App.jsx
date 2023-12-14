@@ -1,11 +1,14 @@
 import React from 'react'
-import { ConnectWallet } from './ConnectWallet.jsx'
+import Stake from './Stake.jsx'
+import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   return (
     <div>
+      <Stake />
 
-      <ConnectWallet />
+      <Toaster />
+
     </div>
   )
 }
