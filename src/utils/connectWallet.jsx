@@ -1,8 +1,8 @@
 import React from 'react'
 import { Contract, ethers } from "ethers"
-import stakingAbi from "./ABI/stakingAbi.json"
-import withdrawAbi from "./ABI/withdrawAbi.json"
-import ethxAbi from "./ABI/ethxAbi.json"
+import stakingAbi from "../ABI/stakingAbi.json"
+import withdrawAbi from "../ABI/withdrawAbi.json"
+import ethxAbi from "../ABI/ethxAbi.json"
 
 
 export const connectWallet = async () => {

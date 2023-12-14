@@ -1,10 +1,8 @@
-import { createContext, useEffect, useState } from "react";
-import { connectWallet } from "../connectWallet"
+import { createContext, useState, useEffect } from "react";
+import { connectWallet } from "../utils/connectWallet";
+export const AppContext = createContext()
 
-export const StakeContext = createContext()
-
-export const StakeContextProvider = ({ children }) => {
-
+export const AppContextProvider = ({ children }) => {
     const [state, setState] = useState({
         provider: null,
         account: null,
@@ -13,28 +11,25 @@ export const StakeContextProvider = ({ children }) => {
         ethxContract: null,
         chainId: null,
     });
-
-
     useEffect(() => {
+
         const handleWallet = async () => {
             try
             {
                 const { provider, selectedAccount, stakingContract, withdrawContract, ethxContract, chainId } = await connectWallet();
-                // console.log(stakingContract, selectedAccount, ethxContract)
                 setState({ provider, selectedAccount, stakingContract, withdrawContract, ethxContract, chainId });
             } catch (error)
             {
                 console.error(error.message);
             }
         };
-        handleWallet()
+
+        handleWallet();
     }, [])
 
-
     return (
-        <StakeContext.Provider value={state}>
+        <AppContext.Provider value={state}>
             {children}
-        </StakeContext.Provider>
-    );
+        </AppContext.Provider>
+    )
 }
-

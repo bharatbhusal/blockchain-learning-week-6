@@ -1,14 +1,12 @@
 import React from 'react'
-import Stake from './Stake.jsx'
 import { Toaster } from 'react-hot-toast'
+import { useAppContext } from './context/useAppContext'
 
 const App = () => {
   return (
     <div>
-      <Stake />
 
       <Toaster />
-
     </div>
   )
 }
