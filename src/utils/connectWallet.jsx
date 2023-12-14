@@ -42,6 +42,7 @@ export const connectWallet = async () => {
 
         stakingContract = new Contract(stakingContractAddress, stakingAbi, signer)
         withdrawContract = new Contract(withdrawContractAddress, withdrawAbi, signer)
+        withdrawContract.getRequestIdsByUser(selectedAccount)
         ethxContract = new Contract(ethxContractAddress, ethxAbi, signer)
 
         return { provider, selectedAccount, withdrawContract, stakingContract, ethxContract, chainId }

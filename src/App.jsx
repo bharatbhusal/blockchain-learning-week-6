@@ -4,6 +4,7 @@ import { useAppContext } from './context/useAppContext'
 import Stake from './components/Stake'
 import Approve from './components/Approve'
 import Withdraw from './components/Withdraw'
+import Claim from './components/Claim'
 
 const App = () => {
   return (
@@ -11,6 +12,8 @@ const App = () => {
       <Stake />
       <Approve />
       <Withdraw />
+
+      <Claim />
       <Toaster />
     </div>
   )
