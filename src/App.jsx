@@ -7,13 +7,16 @@ import Withdraw from './components/Withdraw'
 import Claim from './components/Claim'
 
 const App = () => {
+  const context = useAppContext();
+  console.log(context)
   return (
     <div>
-      <Stake />
-      <Approve />
-      <Withdraw />
 
-      <Claim />
+      {/* <Stake /> */}
+      {/* <Approve /> */}
+      {/* <Withdraw /> */}
+
+      {/* <Claim /> */}
       <Toaster />
     </div>
   )

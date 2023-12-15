@@ -6,6 +6,8 @@ export const AppContextProvider = ({ children }) => {
     const [state, setState] = useState({
         provider: null,
         account: null,
+        ethBalance: null,
+        ethxBalance: null,
         stakingContract: null,
         withdrawContract: null,
         ethxContract: null,
@@ -16,8 +18,8 @@ export const AppContextProvider = ({ children }) => {
         const handleWallet = async () => {
             try
             {
-                const { provider, selectedAccount, stakingContract, withdrawContract, ethxContract, chainId } = await connectWallet();
-                setState({ provider, selectedAccount, stakingContract, withdrawContract, ethxContract, chainId });
+                const { provider, selectedAccount, stakingContract, withdrawContract, ethxContract, chainId, ethBalance, ethxBalance } = await connectWallet();
+                setState({ provider, selectedAccount, ethBalance, ethxBalance, stakingContract, withdrawContract, ethxContract, chainId });
             } catch (error)
             {
                 console.error(error.message);

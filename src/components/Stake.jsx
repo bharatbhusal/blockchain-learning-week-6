@@ -23,7 +23,8 @@ const Stake = () => {
 
         try
         {
-            const transaction = await stakingContract.deposit(selectedAccount, selectedAccount, { value: amountToStake });
+            const transaction = await stakingContract.deposit(selectedAccount, { value: amountToStake });
+            // const transaction = await stakingContract.deposit(selectedAccount, selectedAccount, { value: amountToStake });
             await toast.promise(transaction.wait(), {
                 loading: "🔃",
                 success: '✅',

@@ -9,7 +9,7 @@ export const connectWallet = async () => {
     try
     {
 
-        let [signer, provider, stakingContract, withdrawContract, ethxContract, chainId] = [null]
+        let [signer, provider, stakingContract, withdrawContract, ethxContract, chainId, ethBalance, ethxBalance] = [null]
 
         if (window.ethereum === null)
         {
@@ -36,16 +36,19 @@ export const connectWallet = async () => {
         provider = new ethers.BrowserProvider(window.ethereum)
         signer = await provider.getSigner();
 
+        const balance = await provider.getBalance(selectedAccount)
+        ethBalance = ethers.formatEther(balance)
+
         const stakingContractAddress = "0xd0e400Ec6Ed9C803A9D9D3a602494393E806F823"
-        const withdrawContractAddress = "0xaB90e714b93530d4319BcA9D80f6a905Fc14734F"
+        const withdrawContractAddress = "0x1048Eca024cB2Ba5eA720Ac057D804E95a809Fc8"
         const ethxContractAddress = "0x3338eCd3ab3d3503c55c931d759fA6d78d287236";
 
         stakingContract = new Contract(stakingContractAddress, stakingAbi, signer)
         withdrawContract = new Contract(withdrawContractAddress, withdrawAbi, signer)
-        withdrawContract.getRequestIdsByUser(selectedAccount)
         ethxContract = new Contract(ethxContractAddress, ethxAbi, signer)
+        ethxBalance = ethers.formatEther(await ethxContract.balanceOf(selectedAccount))
 
-        return { provider, selectedAccount, withdrawContract, stakingContract, ethxContract, chainId }
+        return { provider, selectedAccount, withdrawContract, stakingContract, ethxContract, chainId, ethBalance, ethxBalance }
     } catch (error)
     {
         console.error(error.message)
