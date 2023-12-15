@@ -4,14 +4,14 @@ import { useAppContext } from '../context/useAppContext';
 
 export const useRequestIds = () => {
 
-  const { selectedAccount, withdrawContract } = useAppContext()
+  const { userAccount, withdrawContract } = useAppContext()
   const [requestIds, setRequestId] = useState("");
   const [finalizedRequestId, setfinalizedRequestId] = useState(0);
 
   const fetchRequestIds = async () => {
     try
     {
-      const requestIds = await withdrawContract.getRequestIdsByUser(selectedAccount);
+      const requestIds = await withdrawContract.getRequestIdsByUser(userAccount);
       const nextFinalizedId = await withdrawContract.nextRequestIdToFinalize();
       setfinalizedRequestId(parseInt(nextFinalizedId))
       setRequestId(requestIds.toString());
@@ -22,7 +22,7 @@ export const useRequestIds = () => {
   };
 
   const updateRequestIds = async () => {
-    if (withdrawContract && selectedAccount)
+    if (withdrawContract && userAccount)
     {
       await fetchRequestIds();
     }
@@ -30,7 +30,7 @@ export const useRequestIds = () => {
 
   useEffect(() => {
     updateRequestIds();
-  }, [withdrawContract, selectedAccount]);
+  }, [withdrawContract, userAccount]);
 
   return { requestIds, finalizedRequestId, updateRequestIds };
 };

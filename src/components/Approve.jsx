@@ -5,24 +5,25 @@ import { useAppContext } from "../context/useAppContext";
 
 const Approve = () => {
 
-    const { withdrawContract, ethxContract, selectedAccount } = useAppContext();
+    const { withdrawContract, ethxContract, userAccount } = useAppContext();
     const approveStakeAmountRef = useRef();
 
     const approveToken = async (e) => {
 
         e.preventDefault();
-        const amount = approveStakeAmountRef.current.value.trim();
-
-        if (isNaN(amount) || amount <= 0)
-        {
-            toast.error("Please enter a valid positive number.");
-            return;
-        }
-
-        const amountToApprove = ethers.parseUnits(amount, 18).toString();
-
         try
         {
+            const amount = approveStakeAmountRef.current.value.trim();
+
+            if (isNaN(amount) || amount <= 0)
+            {
+                toast.error("Please enter a valid positive number.");
+                return;
+            }
+
+            const amountToApprove = ethers.parseUnits(amount, 18).toString();
+
+
             const approval = await ethxContract.approve(withdrawContract.target, amountToApprove)
 
             await toast.promise(approval.wait(),
@@ -49,21 +50,12 @@ const Approve = () => {
 
     return (
         <form onSubmit={approveToken} >
-            <div >
-                <label >Enter ETHx amount</label>
-            </div>
+            <label >Enter ETHx amount</label>
             <input type="text" ref={approveStakeAmountRef} placeholder="0.0" />
-
             <div >"AFTER APPROVAL ONLY YOU CAN UNSTAKE YOUR TOKEN"</div>
-
-
-            <div >
-                <button onClick={approveToken} type="submit" >
-                    <span >
-                        Approve
-                    </span>
-                </button>
-            </div>
+            <button onClick={approveToken} type="submit" >
+                Approve
+            </button>
 
         </form>
     )

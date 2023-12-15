@@ -52,35 +52,30 @@ const Claim = () => {
 
     return (
         <form onSubmit={cliamToken} >
-            <div >
-                <label >Enter Request ID</label>
-            </div>
+            <label >Enter Request ID</label>
             <input
                 type="text"
                 ref={claimAmountRef}
                 placeholder="0"
             />
-            <div >
-                {requestIds.length >= 1 ? (
-                    <div>
-                        <span >Request Id :</span>{' '}
-                        <span >{requestIds.split(",").reverse().join(",")}</span>
-                    </div>
-                ) : (
-                    <div className="mt-6"></div>
-                )}
-            </div>
+            {requestIds.length >= 1 ? (
+                <div>
+                    <span >Request Id :</span>{' '}
+                    <span >{requestIds.split(",").reverse().join(",")}</span>
+                </div>
+            ) : (
+                <div className="mt-6"></div>
+            )}
             <div >
                 "Claim only after your request ID is finalized."
             </div>
 
-            <div >
-                <button onClick={cliamToken} type="submit" >
-                    <span >
-                        Claim
-                    </span>
-                </button>
-            </div>
+
+            <button onClick={cliamToken} type="submit" >
+
+                Claim
+
+            </button>
         </form>
     );
 };

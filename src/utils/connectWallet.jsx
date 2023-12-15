@@ -26,9 +26,9 @@ export const connectWallet = async () => {
 
         chainId = parseInt(chainIdHex, 16)
 
-        let selectedAccount = accounts[0]
+        let userAccount = accounts[0]
 
-        if (!selectedAccount)
+        if (!userAccount)
         {
             throw new Error("no ethereum accounts available")
         }
@@ -36,7 +36,7 @@ export const connectWallet = async () => {
         provider = new ethers.BrowserProvider(window.ethereum)
         signer = await provider.getSigner();
 
-        const balance = await provider.getBalance(selectedAccount)
+        const balance = await provider.getBalance(userAccount)
         ethBalance = ethers.formatEther(balance)
 
         const stakingContractAddress = "0xd0e400Ec6Ed9C803A9D9D3a602494393E806F823"
@@ -46,9 +46,9 @@ export const connectWallet = async () => {
         stakingContract = new Contract(stakingContractAddress, stakingAbi, signer)
         withdrawContract = new Contract(withdrawContractAddress, withdrawAbi, signer)
         ethxContract = new Contract(ethxContractAddress, ethxAbi, signer)
-        ethxBalance = ethers.formatEther(await ethxContract.balanceOf(selectedAccount))
+        ethxBalance = ethers.formatEther(await ethxContract.balanceOf(userAccount))
 
-        return { provider, selectedAccount, withdrawContract, stakingContract, ethxContract, chainId, ethBalance, ethxBalance }
+        return { provider, userAccount, withdrawContract, stakingContract, ethxContract, chainId, ethBalance, ethxBalance }
     } catch (error)
     {
         console.error(error.message)

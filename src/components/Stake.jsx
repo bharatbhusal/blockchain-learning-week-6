@@ -5,26 +5,26 @@ import { toast } from "react-hot-toast";
 import { useAppContext } from "../context/useAppContext";
 
 const Stake = () => {
-    const { stakingContract, selectedAccount } = useAppContext();
+    const { stakingContract, userAccount } = useAppContext();
     const stakeAmountRef = useRef();
 
 
     const stakeToken = async (e) => {
         e.preventDefault();
-        const amount = stakeAmountRef.current.value.trim();
-
-        if (isNaN(amount) || amount <= 0)
-        {
-            toast.error("Please enter a valid positive number.");
-            return;
-        }
-
-        const amountToStake = ethers.parseUnits(amount, 18).toString();
-
         try
         {
-            const transaction = await stakingContract.deposit(selectedAccount, { value: amountToStake });
-            // const transaction = await stakingContract.deposit(selectedAccount, selectedAccount, { value: amountToStake });
+            const amount = stakeAmountRef.current.value.trim();
+
+            if (isNaN(amount) || amount <= 0)
+            {
+                toast.error("Please enter a valid positive number.");
+                return;
+            }
+
+            const amountToStake = ethers.parseUnits(amount, 18).toString();
+
+
+            const transaction = await stakingContract.deposit(userAccount, { value: amountToStake });
             await toast.promise(transaction.wait(), {
                 loading: "🔃",
                 success: '✅',
@@ -32,7 +32,6 @@ const Stake = () => {
             });
 
             stakeAmountRef.current.value = "";
-            // await updateBalance();
         } catch (error)
         {
             if (stakingContract == null)
@@ -47,23 +46,15 @@ const Stake = () => {
 
     return (
         <form onSubmit={stakeToken} >
-            <div >
-                <label >Enter ETH amount</label>
-            </div>
+            <label >Enter ETH amount</label>
             <input
                 type="text"
                 ref={stakeAmountRef}
                 placeholder="0.0"
             />
-            <div ></div>
-            <div ></div>
-            <div >
-                <button onClick={stakeToken} type="submit" >
-                    <span >
-                        Stake
-                    </span>
-                </button>
-            </div>
+            <button onClick={stakeToken} type="submit" >
+                Stake
+            </button>
         </form>
     );
 };
