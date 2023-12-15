@@ -28,9 +28,9 @@ const Approve = () => {
 
             await toast.promise(approval.wait(),
                 {
-                    loading: "🔃",
-                    success: '✅',
-                    error: '❌'
+                    loading: "Approval is pending...",
+                    success: 'Approval successful 👌',
+                    error: 'Approval failed 🤯'
                 });
 
             approveStakeAmountRef.current.value = "";

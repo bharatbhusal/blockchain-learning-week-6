@@ -61,7 +61,7 @@ button:disabled {
 
 body {
     font-family: "Poppins", sans-serif;
-    /* background-color: var(--color-bg); */
+    /* background-color: rgb(223, 230, 242); */
     line-height: 1.7;
     height: 100vh;
 }
@@ -111,3 +111,21 @@ nav {
 margin: 0 10% ;
 }
 
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label{
+    font-size: 2rem;
+}
+
+input{
+    font-size: 1rem;
+    background-color: var(--color-bg-secondary);
+    height: 3rem;
+    border-radius: .5rem;
+    padding-left: 1rem;
+}

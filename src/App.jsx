@@ -1,6 +1,6 @@
 import React from 'react'
 import "./App.css"
-import { Outlet, Link, NavLink } from 'react-router-dom'
+import { Outlet, NavLink } from 'react-router-dom'
 import Balance from './components/Balance'
 import Account from './components/Account'
 import { Toaster } from 'react-hot-toast'

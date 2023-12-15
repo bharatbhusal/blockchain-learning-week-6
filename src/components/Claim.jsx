@@ -24,12 +24,12 @@ const Claim = () => {
         try
         {
             const transaction = await withdrawContract.claim(requestID);
-
-            await toast.promise(transaction.wait(), {
-                loading: "🔃",
-                success: '✅',
-                error: '❌'
-            });
+            await toast.promise(transaction.wait(),
+                {
+                    loading: "Approval is pending...",
+                    success: 'Approval successful 👌',
+                    error: 'Approval failed 🤯'
+                });
 
             claimAmountRef.current.value = "";
             await updateRequestIds();

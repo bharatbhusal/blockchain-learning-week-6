@@ -38,11 +38,12 @@ const Withdraw = () => {
                 }
             });
 
-            await toast.promise(transactionPromise, {
-                loading: "🔃",
-                success: '✅',
-                error: '❌'
-            });
+            await toast.promise(transactionPromise.wait(),
+                {
+                    loading: "Approval is pending...",
+                    success: 'Approval successful 👌',
+                    error: 'Approval failed 🤯'
+                });
 
             unstakeAmountRef.current.value = "";
         } catch (error)
