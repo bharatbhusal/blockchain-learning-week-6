@@ -5,25 +5,25 @@ import { useAppContext } from "../context/useAppContext";
 
 const Approve = () => {
 
-    const { withdrawContract, ethxContract, userAccount } = useAppContext();
+    const { withdrawContract, ethxContract, ethxBalance } = useAppContext();
     const approveStakeAmountRef = useRef();
 
     const approveToken = async (e) => {
 
         e.preventDefault();
+
+        const amount = approveStakeAmountRef.current.value.trim();
+
+        if (isNaN(amount) || amount <= 0)
+        {
+            toast.error("Please enter a valid positive number.");
+            return;
+        }
+
+        const amountToApprove = ethers.parseUnits(amount, 18).toString();
+
         try
         {
-            const amount = approveStakeAmountRef.current.value.trim();
-
-            if (isNaN(amount) || amount <= 0)
-            {
-                toast.error("Please enter a valid positive number.");
-                return;
-            }
-
-            const amountToApprove = ethers.parseUnits(amount, 18).toString();
-
-
             const approval = await ethxContract.approve(withdrawContract.target, amountToApprove)
 
             await toast.promise(approval.wait(),
@@ -40,7 +40,12 @@ const Approve = () => {
             if (ethxContract == null)
             {
                 toast.error("Connect To Wallet First")
-            } else
+            } if (ethxBalance < approveStakeAmountRef)
+            {
+
+                toast.error("Insufficient ETHx Balance")
+            }
+            else
             {
                 toast.error("Staking Failed");
                 console.error(error.message)

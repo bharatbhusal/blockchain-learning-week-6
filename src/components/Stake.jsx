@@ -7,7 +7,7 @@ import { useAppContext } from "../context/useAppContext";
 
 
 const Stake = () => {
-    const { stakingContract, userAccount } = useAppContext();
+    const { stakingContract, userAccount, ethBalance } = useAppContext();
     const stakeAmountRef = useRef();
     const [ethAmount, setEthAmount] = useState(0);
 
@@ -48,7 +48,11 @@ const Stake = () => {
             if (stakingContract == null)
             {
                 toast.error("Connect To Wallet First")
-            } else
+            } if (ethBalance <= stakeAmountRef)
+            {
+                toast.error("Insufficient ETH Balance")
+            }
+            else
             {
                 toast.error("Staking Failed");
             }
