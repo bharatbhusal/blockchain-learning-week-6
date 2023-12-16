@@ -17,23 +17,23 @@ const container = document.getElementById("root")
 const router = createBrowserRouter([
     {
         // Setting up the root path for the app
-        path: "/",
+        path: "/blockchain-learning-week-6/",
         element: <App />,
         errorElement: <ErrorPage />,
         children: [
             {
                 // Defining a path for the "stake" route
-                path: "stake",
+                path: "/blockchain-learning-week-6/stake",
                 element: <Stake />
             },
             {
                 // Defining a path for the "approve" route
-                path: "approve",
+                path: "/blockchain-learning-week-6/approve",
                 element: <Approve />
             },
             {
                 // Defining a path for the "withdraw" route
-                path: "withdraw",
+                path: "/blockchain-learning-week-6/withdraw",
                 element: <Withdraw />
             },
             {

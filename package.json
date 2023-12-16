@@ -2,9 +2,9 @@
   "name": "blockchain-learning-week-6",
   "version": "0.1.0",
   "_comment": {
-    "homepage": "https://bharatbhusal.github.io/blockchain-learning-week-6"
+    "homepage": "/"
   },
-  "homepage": "/",
+  "homepage": "https://bharatbhusal.github.io/blockchain-learning-week-6",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
