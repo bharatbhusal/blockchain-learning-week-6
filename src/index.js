@@ -1,6 +1,6 @@
 // Importing necessary modules from React and related libraries
 import { createRoot } from "react-dom/client"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createHashRouter as createBrowserRouter, RouterProvider } from "react-router-dom"
 import App from "./App.jsx"
 import { MetaMaskProvider } from '@metamask/sdk-react';
 import { AppContextProvider } from "./context/AppContext.jsx"
