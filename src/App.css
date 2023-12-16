@@ -68,7 +68,7 @@ body {
 
 .container {
     width: 80vw;
-    max-width: 40rem;
+    max-width: 35rem;
     height: 80vh;
     display: flex;
     flex-direction: column;
@@ -97,7 +97,8 @@ nav {
 .balance, .account {
     background-color: var(--color-bg-secondary);
     display: flex;
-    width: 110%;
+    width: 80vw;
+    max-width: 40rem;
     height: 10%;
     bottom: -1rem;
     justify-content: space-between;

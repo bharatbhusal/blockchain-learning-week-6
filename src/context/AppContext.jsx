@@ -1,33 +1,17 @@
-import { createContext, useState, useEffect } from "react";
-import { connectWallet } from "../utils/connectWallet";
+import { createContext, useState } from "react";
 export const AppContext = createContext()
 
 export const AppContextProvider = ({ children }) => {
-    const [state, setState] = useState({
-        provider: null,
-        userAccount: null,
-        ethBalance: null,
-        ethxBalance: null,
-        stakingContract: null,
-        withdrawContract: null,
-        ethxContract: null,
-        chainId: null,
-    });
-    useEffect(() => {
+    const [signer, setSigner] = useState(null);
+    const [ethBalance, setEthBalance] = useState(null);
+    const [ethxBalance, setEthxBalance] = useState(null);
+    const [stakingContract, setStakingContract] = useState(null);
+    const [withdrawContract, setWithdrawContract] = useState(null);
+    const [ethxContract, setEthxContract] = useState(null);
 
-        const handleWallet = async () => {
-            try
-            {
-                const { provider, userAccount, stakingContract, withdrawContract, ethxContract, chainId, ethBalance, ethxBalance } = await connectWallet();
-                setState({ provider, userAccount, ethBalance, ethxBalance, stakingContract, withdrawContract, ethxContract, chainId });
-            } catch (error)
-            {
-                console.error(error.message);
-            }
-        };
-
-        handleWallet();
-    }, [])
+    const state = {
+        signer, setSigner, ethBalance, setEthBalance, ethxBalance, setEthxBalance, stakingContract, setStakingContract, withdrawContract, setWithdrawContract, ethxContract, setEthxContract
+    }
 
     return (
         <AppContext.Provider value={state}>
