@@ -32,12 +32,24 @@ const Stake = () => {
                 throw new Error("Insufficient ETH Balance")
 
             stakeAmountRef.current.value = "";
-            const transaction = await stakingContract.deposit(signer.address, signer.address, { value: amountToStake });
-            await toast.promise(transaction.wait(),
+
+            const stakePromise = new Promise(async (resolve, reject) => {
+                try
                 {
-                    loading: "Transaction is pending...",
-                    success: 'Transaction successful 👌',
-                    error: 'Transaction failed 🤯'
+                    const stake = await stakingContract.deposit(signer.address, signer.address, { value: amountToStake });
+                    const receipt = await stake.wait()
+                    resolve(receipt)
+                } catch (error)
+                {
+                    reject(error)
+                }
+            })
+
+            await toast.promise(stakePromise,
+                {
+                    loading: "Staking is pending...",
+                    success: 'Staking successful 👌',
+                    error: 'Staking failed 🤯'
                 });
 
         } catch (error)
@@ -45,6 +57,7 @@ const Stake = () => {
             console.error(error)
             if (error.message.includes("user rejected"))
                 return toast.error("User Rejected Action")
+
             toast.error(error.message)
         }
     };

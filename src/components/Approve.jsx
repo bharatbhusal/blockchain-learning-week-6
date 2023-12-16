@@ -23,9 +23,19 @@ const Approve = () => {
             if (parseEther(ethxBalance) <= amountToApprove)
                 throw new Error("Insufficent ETHx Balance")
 
-            const approval = await ethxContract.approve(withdrawContract.target, amountToApprove)
+            const approvalPromise = new Promise(async (resolve, reject) => {
+                try
+                {
+                    const approval = await ethxContract.approve(withdrawContract.target, amountToApprove)
+                    const receipt = await approval.wait()
+                    resolve(receipt)
+                } catch (error)
+                {
+                    reject(error)
+                }
+            })
 
-            await toast.promise(approval.wait(),
+            await toast.promise(approvalPromise,
                 {
                     loading: "Approval is pending...",
                     success: 'Approval successful 👌',
@@ -36,6 +46,9 @@ const Approve = () => {
         } catch (error)
         {
             console.error(error.message)
+            if (error.message.includes("user rejected"))
+                return toast.error("User Rejected Action")
+
             toast.error(error.message)
         }
     };
