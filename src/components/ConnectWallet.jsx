@@ -7,7 +7,7 @@ import withdrawAbi from "../ABI/withdrawAbi.json"
 import ethxAbi from "../ABI/ethxAbi.json"
 
 const ConnectWallet = () => {
-    const { sdk, connected } = useSDK();
+    const { sdk, connected, chainId } = useSDK();
     const { signer, setSigner, ethxContract, setEthxContract, setStakingContract, setWithdrawContract, setEthxBalance, setEthBalance } = useAppContext()
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const ConnectWallet = () => {
             }
         }
         setBalances()
-    }, [signer])
+    }, [signer, chainId])
 
     useEffect(() => {
         const setContracts = async () => {
@@ -75,12 +75,12 @@ const ConnectWallet = () => {
     }
 
     return (
-        <>
+        <div className='connection'>
             {connected ?
-                <button onClick={handleDisConnect}>Disconnect</button> :
-                <button onClick={handleConnect}>Connect</button>
+                <button style={{ backgroundColor: "#9d1b1b", color: "white" }} onClick={handleDisConnect}>Disconnect</button> :
+                <button style={{ color: "black" }} onClick={handleConnect}>Connect</button>
             }
-        </>
+        </div>
     )
 }
 

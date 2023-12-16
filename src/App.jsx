@@ -22,34 +22,35 @@ const App = () => {
   return (
 
     <>
-      <ConnectWallet />
+      {/* <ConnectWallet /> */}
 
-      {connected && chainId === "0x5" && ethxBalance ?
-        <>
-          <nav>
-            {/* NavLink components for each navigation item */}
-            <NavLink to={STAKE_PATH} >Stake</NavLink>
-            <NavLink to={APPROVE_PATH} >Approve</NavLink>
-            <NavLink to={WITHDRAW_PATH} >Withdraw</NavLink>
-            <NavLink to={CLAIM_PATH} >Claim</NavLink>
-          </nav>
+      {/* {connected && chainId === "0x5" && ethxBalance ? */}
+      <>
+        <nav>
+          {/* NavLink components for each navigation item */}
+          <NavLink to={STAKE_PATH} >Stake</NavLink>
+          <NavLink to={APPROVE_PATH} >Approve</NavLink>
+          <NavLink to={WITHDRAW_PATH} >Withdraw</NavLink>
+          <NavLink to={CLAIM_PATH} >Claim</NavLink>
+          <ConnectWallet />
+        </nav>
 
-          {/* Main content container */}
+        {/* Main content container */}
 
-          <div className="container">
-            {/* Account component */}
-            <Account />
+        <div className="container">
+          {/* Account component */}
+          <Account />
 
-            {/* Outlet for rendering nested routes */}
-            <Outlet />
+          {/* Outlet for rendering nested routes */}
+          <Outlet />
 
-            {/* Balance component */}
-            <Balance />
-          </div>
-          {/* Toast notifications */}
-          <Toaster />
-        </>
-        : <></>}
+          {/* Balance component */}
+          <Balance />
+        </div>
+        {/* Toast notifications */}
+        <Toaster />
+      </>
+      {/* : <></>} */}
     </>
     // <></>
 
