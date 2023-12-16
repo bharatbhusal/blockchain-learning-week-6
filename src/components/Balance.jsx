@@ -1,8 +1,9 @@
 import React from 'react'
 import { useAppContext } from '../context/useAppContext'
+import { useSDK } from '@metamask/sdk-react'
 
 const Balance = () => {
-    const { ethBalance, ethxBalance } = useAppContext()
+    const { signer, ethBalance, ethxBalance } = useAppContext()
     return (
         <>
             {ethBalance && ethxBalance &&
