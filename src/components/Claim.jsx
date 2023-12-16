@@ -35,7 +35,7 @@ const Claim = () => {
             await updateRequestIds();
         } catch (error)
         {
-            console.log("requesttstca ", requestIds);
+            console.log("requestIds ", requestIds);
             if (!requestIds.split(",").includes(requestID))
             {
                 toast.error("Enter Correct Request Id 😡");
@@ -45,7 +45,6 @@ const Claim = () => {
             } else
             {
                 toast.error("Claim Failed 🤯");
-                console.error(error.message);
             }
         }
     };

@@ -23,26 +23,27 @@ const Withdraw = () => {
 
             const amountToUnstake = ethers.parseUnits(amount, 18).toString();
 
-            const transactionPromise = new Promise(async (resolve, reject) => {
-                try
-                {
-                    const transaction = await withdrawContract.requestWithdraw(
-                        amountToUnstake,
-                        signer.address
-                    );
-                    const receipt = await transaction.wait();
-                    resolve(receipt);
-                } catch (error)
-                {
-                    reject(error);
-                }
-            });
+            // const transactionPromise = new Promise(async (resolve, reject) => {
+            //     try
+            //     {
+            const transaction = await withdrawContract.requestWithdraw(
+                amountToUnstake,
+                signer.address
+            );
+            //     const receipt = await transaction.wait();
+            //     resolve(receipt);
+            // } catch (error)
+            // {
+            //     reject(error);
+            // }
+            // }
+            // );
 
-            await toast.promise(transactionPromise.wait(),
+            await toast.promise(transaction.wait(),
                 {
-                    loading: "Approval is pending...",
-                    success: 'Approval successful 👌',
-                    error: 'Approval failed 🤯'
+                    loading: "Withdrawal is pending...",
+                    success: 'Withdrawal successful 👌',
+                    error: 'Withdrawal failed 🤯'
                 });
 
             unstakeAmountRef.current.value = "";
