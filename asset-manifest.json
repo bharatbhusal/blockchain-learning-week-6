@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/blockchain-learning-week-6/static/js/main.08404863.js",
+    "main.css": "/blockchain-learning-week-6/static/css/main.2c59b9af.css",
+    "main.js": "/blockchain-learning-week-6/static/js/main.000de470.js",
     "index.html": "/blockchain-learning-week-6/index.html",
-    "main.08404863.js.map": "/blockchain-learning-week-6/static/js/main.08404863.js.map"
+    "main.2c59b9af.css.map": "/blockchain-learning-week-6/static/css/main.2c59b9af.css.map",
+    "main.000de470.js.map": "/blockchain-learning-week-6/static/js/main.000de470.js.map"
   },
   "entrypoints": [
-    "static/js/main.08404863.js"
+    "static/css/main.2c59b9af.css",
+    "static/js/main.000de470.js"
   ]
 }
