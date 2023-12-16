@@ -5,17 +5,20 @@ import { toast } from "react-hot-toast";
 import { useAppContext } from "../context/useAppContext";
 
 
-
 const Stake = () => {
-    const { stakingContract, signer, ethBalance } = useAppContext();
+    const { stakingContract, signer, ethBalance, ethxContract } = useAppContext();
     const stakeAmountRef = useRef();
     const [ethAmount, setEthAmount] = useState(0);
 
-    const handleAmountChange = (e) => {
+    const { ethxBalance, setEthxBalance } = useState()
+
+    const handleAmountChange = async (e) => {
         const amount = e.target.value.trim();
         const amountToConvert = (amount * (1 / 1.015151)).toFixed(6);
         setEthAmount(amountToConvert);
+        setEthAmount(await ethxContract.balanceOf(signer.address))
     };
+
 
     const stakeToken = async (e) => {
         e.preventDefault();
@@ -32,7 +35,6 @@ const Stake = () => {
                 throw new Error("Insufficient ETH Balance")
 
             stakeAmountRef.current.value = "";
-
             const stakePromise = new Promise(async (resolve, reject) => {
                 try
                 {
@@ -73,6 +75,7 @@ const Stake = () => {
                         placeholder="0.0"
                         onChange={handleAmountChange}
                     />
+                    {ethxBalance}
                     <div>You will receive: {ethAmount || 0} ETHx</div>
                     <div className="rate">1 ETHx = 1.015151 ETH</div>
                     <button onClick={stakeToken} type="submit" >

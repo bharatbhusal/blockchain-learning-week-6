@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
+// import Web3Context from '../context/Web3Context';
 import { useAppContext } from '../context/useAppContext';
 
-
 export const useRequestIds = () => {
-
   const { signer, withdrawContract } = useAppContext()
   const [requestIds, setRequestId] = useState("");
   const [finalizedRequestId, setfinalizedRequestId] = useState(0);

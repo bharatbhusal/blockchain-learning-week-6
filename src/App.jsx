@@ -8,6 +8,7 @@ import { useAppContext } from './context/useAppContext';
 import { useSDK } from '@metamask/sdk-react';
 import ConnectWallet from './components/ConnectWallet';
 import { Signature } from 'ethers';
+// import Wallet from './components/Wallet';
 
 const App = () => {
   // Define navigation paths as constants
@@ -16,43 +17,34 @@ const App = () => {
   const WITHDRAW_PATH = 'withdraw';
   const CLAIM_PATH = 'claim';
   const { connected, chainId } = useSDK()
-  const { ethxBalance } = useAppContext()
+  const context = useAppContext()
 
-
+  console.log(context)
   return (
-
     <>
-      {/* <ConnectWallet /> */}
+      <nav>
+        {/* NavLink components for each navigation item */}
+        <NavLink to={STAKE_PATH} >Stake</NavLink>
+        <NavLink to={APPROVE_PATH} >Approve</NavLink>
+        <NavLink to={WITHDRAW_PATH} >Withdraw</NavLink>
+        <NavLink to={CLAIM_PATH} >Claim</NavLink>
+        <ConnectWallet />
+      </nav>
 
-      {/* {connected && chainId === "0x5" && ethxBalance ? */}
-      <>
-        <nav>
-          {/* NavLink components for each navigation item */}
-          <NavLink to={STAKE_PATH} >Stake</NavLink>
-          <NavLink to={APPROVE_PATH} >Approve</NavLink>
-          <NavLink to={WITHDRAW_PATH} >Withdraw</NavLink>
-          <NavLink to={CLAIM_PATH} >Claim</NavLink>
-          <ConnectWallet />
-        </nav>
+      {/* Main content container */}
+      <div className="container">
+        {/* Account component */}
+        <Account />
 
-        {/* Main content container */}
+        {/* Outlet for rendering nested routes */}
+        <Outlet />
 
-        <div className="container">
-          {/* Account component */}
-          <Account />
-
-          {/* Outlet for rendering nested routes */}
-          <Outlet />
-
-          {/* Balance component */}
-          <Balance />
-        </div>
-        {/* Toast notifications */}
-        <Toaster />
-      </>
-      {/* : <></>} */}
+        {/* Balance component */}
+        <Balance />
+      </div>
+      {/* Toast notifications */}
+      <Toaster />
     </>
-    // <></>
 
   );
 }

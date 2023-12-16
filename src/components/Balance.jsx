@@ -4,18 +4,18 @@ import { useSDK } from '@metamask/sdk-react'
 
 const Balance = () => {
     const { chainId } = useSDK()
-    const { ethBalance, ethxBalance } = useAppContext()
+    const { ethBalance } = useAppContext()
     return (
         <>
-            {ethBalance && ethxBalance && chainId === "0x5" ?
+            {ethBalance && chainId === "0x5" ?
                 <div className='balance'>
 
                     <div className="eth-balance">
                         ETH:  {ethBalance.slice(0, 10)}
                     </div>
-                    <div className="ethx-balance">
+                    {/* <div className="ethx-balance">
                         ETHx: {ethxBalance.slice(0, 10)}
-                    </div>
+                    </div> */}
                 </div>
                 :
                 <div style={{

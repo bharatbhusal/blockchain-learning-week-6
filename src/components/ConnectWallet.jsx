@@ -7,79 +7,58 @@ import withdrawAbi from "../ABI/withdrawAbi.json"
 import ethxAbi from "../ABI/ethxAbi.json"
 
 const ConnectWallet = () => {
-    const { sdk, connected, chainId } = useSDK();
-    const { signer, setSigner, ethxContract, setEthxContract, setStakingContract, setWithdrawContract, setEthxBalance, setEthBalance } = useAppContext()
+    // const { sdk, connected, chainId } = useSDK();
+    const { signer, setSigner, chainId, setChainId, ethxContract, setEthxContract, setStakingContract, setWithdrawContract, setEthxBalance, setEthBalance } = useAppContext()
 
-    useEffect(() => {
-        const setBalances = async () => {
-            try
-            {
-                const provider = await signer.provider
-                const address = await signer.address
-                setEthBalance(ethers.formatEther(await provider.getBalance(address)))
-                setEthxBalance(ethers.formatEther(await ethxContract.balanceOf(address)))
-                console.debug("updating balances")
-            } catch (error)
-            {
-                console.error(error.message)
-            }
-        }
-        setBalances()
-    }, [signer, chainId])
-
-    useEffect(() => {
-        const setContracts = async () => {
-            try
-            {
-                const provider = new ethers.BrowserProvider(window.ethereum)
-                const signer = await provider.getSigner();
-                setSigner(signer)
-
-                const stakingContractAddress = "0xd0e400Ec6Ed9C803A9D9D3a602494393E806F823"
-                const withdrawContractAddress = "0x1048Eca024cB2Ba5eA720Ac057D804E95a809Fc8"
-                const ethxContractAddress = "0x3338eCd3ab3d3503c55c931d759fA6d78d287236";
-
-                setStakingContract(new Contract(stakingContractAddress, stakingAbi, signer))
-                setWithdrawContract(new Contract(withdrawContractAddress, withdrawAbi, signer))
-                setEthxContract(new Contract(ethxContractAddress, ethxAbi, signer))
-            } catch (error)
-            {
-                console.error(error)
-            }
-        }
-        if (!ethxContract)
-            setContracts()
-    }, [signer])
-
-
-
-    const handleConnect = async () => {
+    const connectWallet = async () => {
         try
         {
-            await sdk?.connect()
-        } catch (err)
-        {
-            console.warn(`failed to connect..`, err);
-        }
-    }
+
+            if (window.ethereum === null)
+            {
+                throw new Error("Metamask not installed")
+            }
+
+            const accounts = await window.ethereum.request({
+                method: "eth_requestAccounts"
+            })
+
+            setChainId(await window.ethereum.request({
+                method: "eth_chainId"
+            }))
 
 
-    const handleDisConnect = async () => {
-        try
+            // chainId = parseInt(chainIdHex, 16)
+
+            let selectedAccount = accounts[0]
+
+            if (!selectedAccount)
+                throw new Error("no ethereum accounts available")
+
+
+
+            const provider = new ethers.BrowserProvider(window.ethereum)
+            setSigner(await provider.getSigner())
+
+            const stakingContractAddress = "0xd0e400Ec6Ed9C803A9D9D3a602494393E806F823"
+            const withdrawContractAddress = "0x1048Eca024cB2Ba5eA720Ac057D804E95a809Fc8"
+            const ethxContractAddress = "0x3338eCd3ab3d3503c55c931d759fA6d78d287236";
+
+            setStakingContract(new Contract(stakingContractAddress, stakingAbi, signer))
+            setWithdrawContract(new Contract(withdrawContractAddress, withdrawAbi, signer))
+            setEthxContract(new Contract(ethxContractAddress, ethxAbi, signer))
+
+            setEthBalance(ethers.formatEther(await provider.getBalance(selectedAccount)))
+
+        } catch (error)
         {
-            sdk?.terminate();
-        } catch (err)
-        {
-            console.warn(`failed to connect..`, err);
+            console.error(error.message)
         }
     }
 
     return (
         <div className='connection'>
-            {connected ?
-                <button style={{ backgroundColor: "#9d1b1b", color: "white" }} onClick={handleDisConnect}>Disconnect</button> :
-                <button style={{ color: "black" }} onClick={handleConnect}>Connect</button>
-            }
+            <button style={{ color: "black" }} onClick={connectWallet}>Connect</button>
         </div>
     )
 }
