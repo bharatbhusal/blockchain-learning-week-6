@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { useAppContext } from "../context/useAppContext";
 
 const Withdraw = () => {
-    const { withdrawContract, userAccount } = useAppContext()
+    const { withdrawContract, signer } = useAppContext()
     const unstakeAmountRef = useRef();
 
     const unstakeToken = async (e) => {
@@ -28,7 +28,7 @@ const Withdraw = () => {
                 {
                     const transaction = await withdrawContract.requestWithdraw(
                         amountToUnstake,
-                        userAccount
+                        signer.address
                     );
                     const receipt = await transaction.wait();
                     resolve(receipt);

@@ -7,6 +7,7 @@ import Account from './components/Account';
 import { useAppContext } from './context/useAppContext';
 import { useSDK } from '@metamask/sdk-react';
 import ConnectWallet from './components/ConnectWallet';
+import { Signature } from 'ethers';
 
 const App = () => {
   // Define navigation paths as constants
@@ -15,14 +16,15 @@ const App = () => {
   const WITHDRAW_PATH = 'withdraw';
   const CLAIM_PATH = 'claim';
   const { connected, chainId } = useSDK()
-  const { ethBalance, ethxBalance } = useAppContext()
+  const { ethxBalance } = useAppContext()
+
 
   return (
 
     <>
       <ConnectWallet />
 
-      {connected && chainId === "0x5" && ethBalance && ethxBalance ?
+      {connected && chainId === "0x5" && ethxBalance ?
         <>
           <nav>
             {/* NavLink components for each navigation item */}
@@ -49,6 +51,7 @@ const App = () => {
         </>
         : <></>}
     </>
+    // <></>
 
   );
 }

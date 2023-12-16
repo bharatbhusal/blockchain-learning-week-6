@@ -7,7 +7,7 @@ import { useAppContext } from "../context/useAppContext";
 
 
 const Stake = () => {
-    const { stakingContract, userAccount, ethBalance } = useAppContext();
+    const { stakingContract, signer, ethBalance } = useAppContext();
     const stakeAmountRef = useRef();
     const [ethAmount, setEthAmount] = useState(0);
 
@@ -33,7 +33,7 @@ const Stake = () => {
 
         try
         {
-            const transaction = await stakingContract.deposit(userAccount, userAccount, { value: amountToStake });
+            const transaction = await stakingContract.deposit(signer.address, signer.address, { value: amountToStake });
             await toast.promise(transaction.wait(),
                 {
                     loading: "Transaction is pending...",

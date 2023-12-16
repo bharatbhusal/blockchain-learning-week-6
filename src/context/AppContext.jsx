@@ -9,6 +9,7 @@ export const AppContextProvider = ({ children }) => {
     const [withdrawContract, setWithdrawContract] = useState(null);
     const [ethxContract, setEthxContract] = useState(null);
 
+
     const state = {
         signer, setSigner, ethBalance, setEthBalance, ethxBalance, setEthxBalance, stakingContract, setStakingContract, withdrawContract, setWithdrawContract, ethxContract, setEthxContract
     }

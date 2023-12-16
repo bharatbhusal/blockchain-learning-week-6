@@ -5,27 +5,29 @@ import { useAppContext } from '../context/useAppContext';
 import stakingAbi from "../ABI/stakingAbi.json"
 import withdrawAbi from "../ABI/withdrawAbi.json"
 import ethxAbi from "../ABI/ethxAbi.json"
-import toast from 'react-hot-toast';
 
 const ConnectWallet = () => {
-    const { sdk, provider, connected, chainId } = useSDK();
-    const { signer, setSigner, ethxContract, setEthxContract, setStakingContract, ethBalance, setWithdrawContract, setEthxBalance, setEthBalance } = useAppContext()
-
+    const { sdk, connected } = useSDK();
+    const { signer, setSigner, ethxContract, setEthxContract, setStakingContract, setWithdrawContract, setEthxBalance, setEthBalance } = useAppContext()
 
     useEffect(() => {
         const setBalances = async () => {
             try
             {
-                setEthBalance(ethers.formatEther(await (signer.provider).getBalance(signer.address)))
-                setEthxBalance(ethers.formatEther(await ethxContract.balanceOf(signer.address)))
+                const provider = await signer.provider
+                const address = await signer.address
+                setEthBalance(ethers.formatEther(await provider.getBalance(address)))
+                setEthxBalance(ethers.formatEther(await ethxContract.balanceOf(address)))
+                console.debug("updating balances")
             } catch (error)
             {
                 console.error(error.message)
             }
-
         }
+        setBalances()
+    }, [signer])
 
-
+    useEffect(() => {
         const setContracts = async () => {
             try
             {
@@ -45,31 +47,10 @@ const ConnectWallet = () => {
                 console.error(error)
             }
         }
+        if (!ethxContract)
+            setContracts()
+    }, [signer])
 
-        const changeNetwork = async () => {
-            // console.debug(`switching to network chainId=${hexChainId}`);
-            try
-            {
-
-                const response = await provider.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: "0x5" }],
-                });
-                console.debug(`response`, response);
-            } catch (err)
-            {
-                console.error(err);
-            }
-        };
-
-        if (chainId !== "0x5")
-        {
-            changeNetwork()
-        }
-        setContracts()
-        setBalances()
-
-    }, [sdk, connected, chainId])
 
 
     const handleConnect = async () => {
@@ -81,6 +62,8 @@ const ConnectWallet = () => {
             console.warn(`failed to connect..`, err);
         }
     }
+
+
     const handleDisConnect = async () => {
         try
         {
