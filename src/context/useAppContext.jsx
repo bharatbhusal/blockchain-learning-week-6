@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AppContext } from "./AppContext"
 
-export const useAppContext = () => {
+const useAppContext = () => {
     const context = useContext(AppContext)
     if (context === undefined)
     {
@@ -9,3 +9,5 @@ export const useAppContext = () => {
     }
     return context
 }
+
+export default useAppContext

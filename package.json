@@ -1,29 +1,9 @@
 {
   "name": "blockchain-learning-week-6",
-  "version": "0.1.0",
-  "homepage": "https://bharatbhusal.github.io/blockchain-learning-week-6",
-  "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@metamask/sdk-react": "^0.14.1",
-    "@mui/material": "^5.14.19",
-    "ethers": "^6.9.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-error-boundary": "^4.0.12",
-    "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^6.21.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "gh-pages": "^6.1.0"
-  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "localhost",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -32,11 +12,19 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "envalid": "^8.0.0",
+    "ethers": "^5.7.0",
+    "gh-pages": "^6.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^6.21.0",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^3.5.0"
   },
   "browserslist": {
     "production": [
