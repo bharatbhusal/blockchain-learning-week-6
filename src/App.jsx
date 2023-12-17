@@ -17,7 +17,7 @@ const App = () => {
     const context = useAppContext()
 
     console.log(context)
-    console.log(env)
+    // console.log(env)
 
     return (
         <>

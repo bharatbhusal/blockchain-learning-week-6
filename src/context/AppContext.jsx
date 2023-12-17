@@ -11,7 +11,6 @@ export const AppContextProvider = ({ children }) => {
     const [withdrawContract, setWithdrawContract] = useState(null);
     const [ethxContract, setEthxContract] = useState(null);
 
-
     const state = {
         user, setUser, chainId, setChainId, provider, setProvider, ethBalance, setEthBalance, ethxBalance, setEthxBalance, stakingContract, setStakingContract, withdrawContract, setWithdrawContract, ethxContract, setEthxContract
     }

@@ -9,7 +9,7 @@ import withdrawAbi from '../ABI/withdrawAbi.json';
 import ethxAbi from '../ABI/ethxAbi.json';
 
 const ConnectWallet = () => {
-    const { setUser, setChainId, setProvider, setStakingContract, setWithdrawContract, setEthxContract } =
+    const { setUser, setChainId, setProvider, setStakingContract, setWithdrawContract, setEthxContract, setEthBalance } =
         useAppContext();
 
     const handleConnection = async () => {
