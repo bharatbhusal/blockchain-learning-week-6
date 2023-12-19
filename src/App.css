@@ -97,7 +97,7 @@ nav {
 .balance, .account {
     background-color: var(--color-bg-secondary);
     display: flex;
-    width: 110%;
+    width: 120%;
     height: 10%;
     bottom: -1rem;
     justify-content: space-between;

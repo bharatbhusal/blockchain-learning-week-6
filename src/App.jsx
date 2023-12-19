@@ -10,8 +10,8 @@ import { useAppContext } from './context/useAppContext'
 
 
 const App = () => {
-  const context = useAppContext()
-  console.log(context)
+  // const context = useAppContext()
+  // console.log(context)
 
   return (
     <>

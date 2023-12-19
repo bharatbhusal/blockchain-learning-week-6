@@ -58,11 +58,12 @@ export const AppContextProvider = ({ children }) => {
     useEffect(() => {
         const returnEthxBalance = async () => {
             const contract = new Contract("0x3338eCd3ab3d3503c55c931d759fA6d78d287236", ethxAbi, signer)
-            console.log(signer.address)
+            // console.log(signer.address)
             setEthxBalance(ethers.formatEther(await contract.balanceOf(signer.address)))
         }
-        if (!ethBalance)
+        if (signer)
             returnEthxBalance()
+        // console.log("fetched")
     }, [ethxContract])
 
 
