@@ -8,8 +8,10 @@ import Approve from "./components/Approve.jsx"
 import Withdraw from "./components/Withdraw.jsx"
 import Claim from "./components/Claim.jsx"
 
+// Get the container element by ID
 const container = document.getElementById("root")
 
+// Create a BrowserRouter with route configuration
 const router = createBrowserRouter([
     {
         path: "/blockchain-learning-week-6/",
@@ -36,8 +38,10 @@ const router = createBrowserRouter([
     }
 ])
 
+// Create a root for rendering React content
 const root = createRoot(container)
 root.render(
+    // Wrap the entire application in AppContextProvider and RouterProvider
     <AppContextProvider>
         <RouterProvider router={router} />
     </AppContextProvider>
