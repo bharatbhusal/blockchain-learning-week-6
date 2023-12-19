@@ -1,79 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import "./App.css"
-import { Outlet, NavLink, useSearchParams } from 'react-router-dom'
+import React from 'react'
+import { NavLink, Outlet } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 import Balance from './components/Balance'
 import Account from './components/Account'
-import { Toaster } from 'react-hot-toast'
 import ConnectWallet from './components/ConnectWallet'
 import { useAppContext } from './context/useAppContext'
-
-
+import "./App.css"
 
 const App = () => {
-  // const context = useAppContext()
-  // console.log(context)
+  // Render the main navigation links
+  const renderNavLink = (to, text) => (
+    <NavLink
+      to={to}
+      className={({ isActive, isPending }) =>
+        isActive ? 'active' : isPending ? 'pending' : ''
+      }
+    >
+      {text}
+    </NavLink>
+  )
 
   return (
     <>
+      {/* Navigation */}
       <nav>
-        <NavLink
-          to={`stake`}
-          className={({ isActive, isPending }) =>
-            isActive
-              ? "active"
-              : isPending
-                ? "pending"
-                : ""
-          }
-        >
-          Stake
-        </NavLink>
-        <NavLink
-          to={`approve`}
-          className={({ isActive, isPending }) =>
-            isActive
-              ? "active"
-              : isPending
-                ? "pending"
-                : ""
-          }
-        >
-          Approve
-        </NavLink>
-        <NavLink
-          to={`withdraw`}
-          className={({ isActive, isPending }) =>
-            isActive
-              ? "active"
-              : isPending
-                ? "pending"
-                : ""
-          }
-        >
-          Withdraw
-        </NavLink>
-        <NavLink
-          to={`claim`}
-          className={({ isActive, isPending }) =>
-            isActive
-              ? "active"
-              : isPending
-                ? "pending"
-                : ""
-          }
-        >
-          Claim
-        </NavLink>
+        {renderNavLink('stake', 'Stake')}
+        {renderNavLink('approve', 'Approve')}
+        {renderNavLink('withdraw', 'Withdraw')}
+        {renderNavLink('claim', 'Claim')}
         <ConnectWallet />
       </nav>
 
-
-      <div className="container" >
+      {/* Main Content */}
+      <div className="container">
         <Account />
         <Outlet />
         <Balance />
-      </div >
+      </div>
 
+      {/* Toast Notifications */}
       <Toaster />
     </>
   )

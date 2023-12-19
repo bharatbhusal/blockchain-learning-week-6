@@ -12,24 +12,24 @@ const container = document.getElementById("root")
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/blockchain-learning-week-6/",
         element: <App />,
         errorElement: <ErrorPage />,
         children: [
             {
-                path: "stake",
+                path: "/blockchain-learning-week-6/stake",
                 element: <Stake />
             },
             {
-                path: "approve",
+                path: "/blockchain-learning-week-6/approve",
                 element: <Approve />
             },
             {
-                path: "withdraw",
+                path: "/blockchain-learning-week-6/withdraw",
                 element: <Withdraw />
             },
             {
-                path: "claim",
+                path: "/blockchain-learning-week-6/claim",
                 element: <Claim />
             },
         ]
