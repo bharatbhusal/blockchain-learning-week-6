@@ -4,9 +4,14 @@ import { Outlet, NavLink } from 'react-router-dom'
 import Balance from './components/Balance'
 import Account from './components/Account'
 import { Toaster } from 'react-hot-toast'
+import ConnectWallet from './components/ConnectWallet'
+import { useAppContext } from './context/useAppContext'
 
 
 const App = () => {
+  const context = useAppContext()
+  console.log(context)
+
   return (
     <>
       <nav>
@@ -58,7 +63,9 @@ const App = () => {
         >
           Claim
         </NavLink>
+        <ConnectWallet />
       </nav>
+
       <div className="container" >
         <Account />
         <Outlet />
