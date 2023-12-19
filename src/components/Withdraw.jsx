@@ -38,7 +38,7 @@ const Withdraw = () => {
                 }
             });
 
-            await toast.promise(transactionPromise.wait(),
+            await toast.promise(transactionPromise,
                 {
                     loading: "Approval is pending...",
                     success: 'Approval successful 👌',
@@ -54,7 +54,7 @@ const Withdraw = () => {
             } else
             {
                 toast.error("Transaction Failed 🤯");
-                console.error(error.code);
+                console.error(error.message);
             }
         }
     };
