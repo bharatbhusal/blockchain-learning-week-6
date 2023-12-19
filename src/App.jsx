@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./App.css"
-import { Outlet, NavLink } from 'react-router-dom'
+import { Outlet, NavLink, useSearchParams } from 'react-router-dom'
 import Balance from './components/Balance'
 import Account from './components/Account'
 import { Toaster } from 'react-hot-toast'
 import ConnectWallet from './components/ConnectWallet'
 import { useAppContext } from './context/useAppContext'
+
 
 
 const App = () => {
@@ -66,11 +67,13 @@ const App = () => {
         <ConnectWallet />
       </nav>
 
+
       <div className="container" >
         <Account />
         <Outlet />
         <Balance />
       </div >
+
       <Toaster />
     </>
   )

@@ -3,7 +3,6 @@ import { useAppContext } from '../context/useAppContext'
 
 const Balance = () => {
     const { ethBalance, ethxBalance } = useAppContext()
-    console.log(ethBalance, ethxBalance)
     return (
         <>
             {ethBalance && ethxBalance &&
