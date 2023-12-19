@@ -32,6 +32,7 @@ export const AppContextProvider = ({ children }) => {
         })
 
         setSigner(newSigner)
+        
 
     }
 
@@ -42,6 +43,7 @@ export const AppContextProvider = ({ children }) => {
         })
         setChain(newChain)
     }
+
     return (
         <AppContext.Provider value={state}>
             {children}

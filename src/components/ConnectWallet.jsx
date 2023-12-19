@@ -5,10 +5,15 @@ import { useAppContext } from '../context/useAppContext';
 import stakingAbi from "../ABI/stakingAbi.json"
 import withdrawAbi from "../ABI/withdrawAbi.json"
 import ethxAbi from "../ABI/ethxAbi.json"
+import { useEthxBalance } from "../utils/useEthxBalance"
 
 const ConnectWallet = () => {
     const { signer, setSigner, setChainId, setEthxBalance, setEthxContract, setStakingContract, ethxContract, setWithdrawContract, setEthBalance } = useAppContext()
+    const { ethxBalance, updateBalance } = useEthxBalance()
 
+    const getProvider = () => {
+        return new ethers.BrowserProvider(window.ethereum)
+    }
     const connectWallet = async () => {
         try
         {
@@ -36,8 +41,10 @@ const ConnectWallet = () => {
 
 
 
-            const provider = new ethers.BrowserProvider(window.ethereum)
+            const provider = getProvider()
             setSigner(await provider.getSigner())
+
+            setEthBalance(ethers.formatEther(await provider.getBalance(selectedAccount)))
 
             const stakingContractAddress = "0xd0e400Ec6Ed9C803A9D9D3a602494393E806F823"
             const withdrawContractAddress = "0x1048Eca024cB2Ba5eA720Ac057D804E95a809Fc8"
@@ -45,23 +52,18 @@ const ConnectWallet = () => {
 
             setStakingContract(new Contract(stakingContractAddress, stakingAbi, signer))
             setWithdrawContract(new Contract(withdrawContractAddress, withdrawAbi, signer))
-            const temp = new Contract(ethxContractAddress, ethxAbi, signer)
-            setEthxContract(temp)
+            setEthxContract(new Contract(ethxContractAddress, ethxAbi, signer))
 
-            setEthBalance(ethers.formatEther(await provider.getBalance(selectedAccount)))
+            setEthxBalance(await ethxContract.balanceOf(signer.address))
 
-            await getEthxBalance()
+            // setEthxBalance(ethxBalance)
+            // await updateBalance()
         } catch (error)
         {
             console.error(error.message)
         }
     }
 
-    async function getEthxBalance() {
-        const balance = ethers.formatEther(await ethxContract.balanceOf(selectedAccount))
-
-        // setEthxBalance(balance)
-    }
     return (
         <div className='connection'>
             <button style={{ color: "black" }} onClick={connectWallet}>Connect</button>

@@ -3,8 +3,6 @@ import { useAppContext } from '../context/useAppContext'
 
 const Account = () => {
     const { signer, chainId } = useAppContext()
-
-
     return (
         <>{signer && chainId &&
             <div className="account">
