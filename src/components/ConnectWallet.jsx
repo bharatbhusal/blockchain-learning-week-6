@@ -5,11 +5,11 @@ import { useAppContext } from '../context/useAppContext';
 import stakingAbi from "../ABI/stakingAbi.json"
 import withdrawAbi from "../ABI/withdrawAbi.json"
 import ethxAbi from "../ABI/ethxAbi.json"
-import { useEthxBalance } from "../utils/useEthxBalance"
+
 
 const ConnectWallet = () => {
     const { signer, setSigner, setChainId, setEthxBalance, setEthxContract, setStakingContract, stakingContract, ethxContract, setWithdrawContract, setEthBalance } = useAppContext()
-    const { ethxBalance, updateBalance } = useEthxBalance()
+
 
     const returnSigner = async () => {
         const provider = new ethers.BrowserProvider(window.ethereum)

@@ -26,9 +26,9 @@ const Claim = () => {
             const transaction = await withdrawContract.claim(requestID);
             await toast.promise(transaction.wait(),
                 {
-                    loading: "Approval is pending...",
-                    success: 'Approval successful 👌',
-                    error: 'Approval failed 🤯'
+                    loading: "Claim is pending...",
+                    success: 'Claim successful 👌',
+                    error: 'Claim failed 🤯'
                 });
 
             claimAmountRef.current.value = "";

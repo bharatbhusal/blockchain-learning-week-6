@@ -40,9 +40,9 @@ const Withdraw = () => {
 
             await toast.promise(transactionPromise,
                 {
-                    loading: "Approval is pending...",
-                    success: 'Approval successful 👌',
-                    error: 'Approval failed 🤯'
+                    loading: "Withdraw request is pending...",
+                    success: 'Withdraw request successful 👌',
+                    error: 'Withdraw request failed 🤯'
                 });
 
             unstakeAmountRef.current.value = "";
