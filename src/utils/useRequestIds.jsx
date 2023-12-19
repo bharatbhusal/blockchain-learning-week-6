@@ -1,26 +1,31 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/useAppContext';
 
-
 export const useRequestIds = () => {
+  // Accessing signer and withdrawContract from the AppContext
+  const { signer, withdrawContract } = useAppContext();
 
-  const { signer, withdrawContract } = useAppContext()
-  const [requestIds, setRequestId] = useState("");
-  const [finalizedRequestId, setfinalizedRequestId] = useState(0);
+  // State to store requestIds and finalizedRequestId
+  const [requestIds, setRequestIds] = useState('');
+  const [finalizedRequestId, setFinalizedRequestId] = useState(0);
 
+  // Function to fetch requestIds and next finalized request ID
   const fetchRequestIds = async () => {
     try
     {
-      const requestIds = await withdrawContract.getRequestIdsByUser(signer.address);
+      const userRequestIds = await withdrawContract.getRequestIdsByUser(signer.address);
       const nextFinalizedId = await withdrawContract.nextRequestIdToFinalize();
-      setfinalizedRequestId(parseInt(nextFinalizedId))
-      setRequestId(requestIds.toString());
+
+      // Update state with fetched data
+      setFinalizedRequestId(parseInt(nextFinalizedId));
+      setRequestIds(userRequestIds.toString());
     } catch (error)
     {
-      console.error("Error fetching balance:", error);
+      console.error("Error fetching request IDs:", error);
     }
   };
 
+  // Function to update requestIds on component mount and when dependencies change
   const updateRequestIds = async () => {
     if (withdrawContract && signer.address)
     {
@@ -28,9 +33,11 @@ export const useRequestIds = () => {
     }
   };
 
+  // Effect to update requestIds on component mount and when dependencies change
   useEffect(() => {
     updateRequestIds();
   }, [withdrawContract, signer]);
 
+  // Returning state and update function
   return { requestIds, finalizedRequestId, updateRequestIds };
 };

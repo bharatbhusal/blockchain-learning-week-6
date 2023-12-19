@@ -1,68 +1,77 @@
-
-import React, { useEffect } from 'react'
-import { ethers, Contract } from "ethers"
+import React from 'react';
+import { ethers } from 'ethers';
 import { useAppContext } from '../context/useAppContext';
-import stakingAbi from "../ABI/stakingAbi.json"
-import withdrawAbi from "../ABI/withdrawAbi.json"
-import ethxAbi from "../ABI/ethxAbi.json"
-
 
 const ConnectWallet = () => {
-    const { setSigner, setChainId, } = useAppContext()
+    // Accessing setSigner and setChainId from the AppContext
+    const { setSigner, setChainId } = useAppContext();
 
-
+    // Function to retrieve the signer using the BrowserProvider
     const returnSigner = async () => {
-        const provider = new ethers.BrowserProvider(window.ethereum)
-        return await provider.getSigner()
-    }
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        return await provider.getSigner();
+    };
 
+    // Function to check the presence of the wallet application
     const checkWalletAppPresence = () => {
         if (window.ethereum === null)
         {
-            throw new Error("Wallet not installed")
+            throw new Error('Wallet not installed');
         }
-    }
+    };
 
+    // Function to check the presence of the wallet address
     const checkWalletAddressPresence = async () => {
-
         const accounts = await window.ethereum.request({
-            method: "eth_requestAccounts"
-        })
+            method: 'eth_requestAccounts',
+        });
 
-        let selectedAccount = accounts[0]
+        let selectedAccount = accounts[0];
 
-        if (!selectedAccount)
-            throw new Error("No accounts available")
-    }
+        if (!selectedAccount) throw new Error('No accounts available');
+    };
 
+    // Function to retrieve the chain ID
     const returnChainId = async () => {
         return await window.ethereum.request({
-            method: "eth_chainId"
-        })
-    }
+            method: 'eth_chainId',
+        });
+    };
+
+    // Function to connect the wallet
     const connectWallet = async () => {
         try
         {
-            checkWalletAppPresence()
-            await checkWalletAddressPresence()
+            // Check if the wallet application is present
+            checkWalletAppPresence();
 
-            setChainId(await window.ethereum.request({
-                method: "eth_chainId"
-            }))
-            setChainId(await returnChainId())
+            // Check the presence of the wallet address
+            await checkWalletAddressPresence();
 
-            setSigner(await returnSigner())
+            // Using Promise.all to execute asynchronous functions concurrently
+            const [chainId, signer] = await Promise.all([
+                returnChainId(),
+                returnSigner(),
+            ]);
+
+            // Set the retrieved chain ID and signer in the AppContext
+            setChainId(chainId);
+            setSigner(signer);
         } catch (error)
         {
-            console.error(error.message)
+            console.error(error.message);
         }
-    }
+    };
 
     return (
         <div className='connection'>
-            {<button style={{ color: "black" }} onClick={connectWallet}>Connect</button>}
+            {/* Use camelCase for style properties */}
+            {/* Button to trigger the connectWallet function */}
+            <button style={{ color: 'black' }} onClick={connectWallet}>
+                Connect
+            </button>
         </div>
-    )
-}
+    );
+};
 
-export default ConnectWallet
+export default ConnectWallet;

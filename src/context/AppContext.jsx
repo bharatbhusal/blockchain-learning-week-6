@@ -1,13 +1,14 @@
-import { createContext, useState, useEffect } from "react";
-import stakingAbi from "../ABI/stakingAbi.json"
-import withdrawAbi from "../ABI/withdrawAbi.json"
-import ethxAbi from "../ABI/ethxAbi.json"
-import { ethers, Contract } from "ethers"
-export const AppContext = createContext()
+import { createContext, useState, useEffect } from 'react';
+import stakingAbi from '../ABI/stakingAbi.json';
+import withdrawAbi from '../ABI/withdrawAbi.json';
+import ethxAbi from '../ABI/ethxAbi.json';
+import { ethers, Contract } from 'ethers';
+
+export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
     const [signer, setSigner] = useState(null);
-    const [chainId, setChainId] = useState("chainId")
+    const [chainId, setChainId] = useState('chainId');
     const [ethBalance, setEthBalance] = useState(null);
     const [ethxBalance, setEthxBalance] = useState(null);
     const [stakingContract, setStakingContract] = useState(null);
@@ -15,78 +16,74 @@ export const AppContextProvider = ({ children }) => {
     const [ethxContract, setEthxContract] = useState(null);
 
     const state = {
-        signer, setSigner, chainId, setChainId, ethBalance,
-        ethxBalance, setEthxBalance, setEthBalance, stakingContract, setStakingContract, withdrawContract, setWithdrawContract, ethxContract, setEthxContract
-    }
+        signer,
+        setSigner,
+        chainId,
+        setChainId,
+        ethBalance,
+        ethxBalance,
+        setEthxBalance,
+        setEthBalance,
+        stakingContract,
+        setStakingContract,
+        withdrawContract,
+        setWithdrawContract,
+        ethxContract,
+        setEthxContract,
+    };
 
     useEffect(() => {
-        window.ethereum.on('accountChanged', () => handleSignerChange(setSigner))
-        window.ethereum.on('chainChanged', () => handleChainChange(setChainId))
+        // Event listeners for account and chain changes
+        const handleAccountChange = () => handleSignerChange(setSigner);
+        const handleChainChange = () => handleChainChange(setChainId);
+
+        window.ethereum.on('accountChanged', handleAccountChange);
+        window.ethereum.on('chainChanged', handleChainChange);
 
         return () => {
-            window.ethereum.removeListener('accountChanged', () => handleSignerChange(setSigner))
-            window.ethereum.removeListener('chainChanged', () => handleChainChange(setChainId))
-        }
+            // Cleanup event listeners
+            window.ethereum.removeListener('accountChanged', handleAccountChange);
+            window.ethereum.removeListener('chainChanged', handleChainChange);
+        };
     }, []);
 
-    // useEffect(() => {
-    //     const returnSigner = async () => {
-    //         const provider = new ethers.BrowserProvider(window.ethereum)
-    //         return await provider.getSigner()
-    //     }
-    //     returnSigner()
-    // }, [signer])
+    useEffect(() => {
+        // Create contract instances when signer is updated
+        const createContract = (abi, signer, address) => new Contract(address, abi, signer);
+
+        setStakingContract(createContract(stakingAbi, signer, '0xd0e400Ec6Ed9C803A9D9D3a602494393E806F823'));
+        setWithdrawContract(createContract(withdrawAbi, signer, '0x1048Eca024cB2Ba5eA720Ac057D804E95a809Fc8'));
+        setEthxContract(createContract(ethxAbi, signer, '0x3338eCd3ab3d3503c55c931d759fA6d78d287236'));
+    }, [signer]);
 
     useEffect(() => {
-        const createContract = (abi, signer, address) => {
-            return new Contract(address, abi, signer)
-        }
-        setStakingContract(createContract(stakingAbi, signer, "0xd0e400Ec6Ed9C803A9D9D3a602494393E806F823")) //staking contract
-
-        setWithdrawContract(createContract(withdrawAbi, signer, "0x1048Eca024cB2Ba5eA720Ac057D804E95a809Fc8")) //withdraw contract
-
-        setEthxContract(createContract(ethxAbi, signer, "0x3338eCd3ab3d3503c55c931d759fA6d78d287236")) //ethx contract
-    }, [signer])
-
-    useEffect(() => {
+        // Fetch and update ETH balance when signer changes
         const returnEthBalance = async () => {
-            setEthBalance(ethers.formatEther(await signer.provider.getBalance(signer.address)))
+            setEthBalance(ethers.formatEther(await signer.provider.getBalance(signer.address)));
+        };
+
+        if (signer)
+        {
+            returnEthBalance();
         }
-        returnEthBalance()
-    }, [signer])
+    }, [signer]);
 
     useEffect(() => {
+        // Fetch and update ETHx balance when ethxContract changes
         const returnEthxBalance = async () => {
-            const contract = new Contract("0x3338eCd3ab3d3503c55c931d759fA6d78d287236", ethxAbi, signer)
-            // console.log(signer.address)
-            setEthxBalance(ethers.formatEther(await contract.balanceOf(signer.address)))
-        }
+            const contract = new Contract('0x3338eCd3ab3d3503c55c931d759fA6d78d287236', ethxAbi, signer);
+            setEthxBalance(ethers.formatEther(await contract.balanceOf(signer.address)));
+        };
+
         if (signer)
-            returnEthxBalance()
-        // console.log("fetched")
-    }, [ethxContract])
-
-
-    const handleSignerChange = async (setSigner) => {
-
-        const newSigner = await window.ethereum.request({
-            method: "eth_requestAccounts"
-        })
-
-        setSigner(newSigner)
-    }
-
-    const handleChainChange = async (setChain) => {
-
-        let newChain = await window.ethereum.request({
-            method: 'eth_chainId'
-        })
-        setChain(newChain)
-    }
+        {
+            returnEthxBalance();
+        }
+    }, [ethxContract, signer]);
 
     return (
         <AppContext.Provider value={state}>
             {children}
         </AppContext.Provider>
-    )
-}
+    );
+};
