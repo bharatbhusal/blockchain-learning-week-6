@@ -36,9 +36,9 @@ const Stake = () => {
             const transaction = await stakingContract.deposit(signer.address, signer.address, { value: amountToStake });
             await toast.promise(transaction.wait(),
                 {
-                    loading: "Transaction is pending...",
-                    success: 'Transaction successful 👌',
-                    error: 'Transaction failed 🤯'
+                    loading: "Staking is pending...",
+                    success: 'Staking successful 👌',
+                    error: 'Staking failed 🤯'
                 });
 
             stakeAmountRef.current.value = "";

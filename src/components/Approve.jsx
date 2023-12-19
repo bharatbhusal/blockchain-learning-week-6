@@ -5,7 +5,7 @@ import { useAppContext } from "../context/useAppContext";
 
 const Approve = () => {
 
-    const { withdrawContract, ethxContract, userAccount } = useAppContext();
+    const { withdrawContract, ethxContract } = useAppContext();
     const approveStakeAmountRef = useRef();
 
     const approveToken = async (e) => {
