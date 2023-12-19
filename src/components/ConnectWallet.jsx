@@ -1,4 +1,4 @@
-import { useSDK } from '@metamask/sdk-react'
+
 import React, { useEffect } from 'react'
 import { ethers, Contract } from "ethers"
 import { useAppContext } from '../context/useAppContext';
@@ -7,8 +7,7 @@ import withdrawAbi from "../ABI/withdrawAbi.json"
 import ethxAbi from "../ABI/ethxAbi.json"
 
 const ConnectWallet = () => {
-    // const { sdk, connected, chainId } = useSDK();
-    const { signer, setSigner, chainId, setChainId, ethxContract, setEthxContract, setStakingContract, setWithdrawContract, setEthxBalance, setEthBalance } = useAppContext()
+    const { signer, setSigner, setChainId, setEthxBalance, setEthxContract, setStakingContract, ethxContract, setWithdrawContract, setEthBalance } = useAppContext()
 
     const connectWallet = async () => {
         try
@@ -46,9 +45,16 @@ const ConnectWallet = () => {
 
             setStakingContract(new Contract(stakingContractAddress, stakingAbi, signer))
             setWithdrawContract(new Contract(withdrawContractAddress, withdrawAbi, signer))
-            setEthxContract(new Contract(ethxContractAddress, ethxAbi, signer))
+            const temp = new Contract(ethxContractAddress, ethxAbi, signer)
+            setEthxContract(temp)
 
             setEthBalance(ethers.formatEther(await provider.getBalance(selectedAccount)))
+
+            console.log(selectedAccount)
+            console.log(temp)
+
+            const balance = await temp.balanceOf(selectedAccount)
+            console.log(balance)
 
         } catch (error)
         {

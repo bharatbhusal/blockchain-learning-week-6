@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-// import Web3Context from '../context/Web3Context';
 import { useAppContext } from '../context/useAppContext';
 
 export const useRequestIds = () => {

@@ -7,12 +7,14 @@ export const AppContextProvider = ({ children }) => {
     const [signer, setSigner] = useState(null);
     const [chainId, setChainId] = useState("0x5")
     const [ethBalance, setEthBalance] = useState(null);
+    const [ethxBalance, setEthxBalance] = useState(null);
     const [stakingContract, setStakingContract] = useState(null);
     const [withdrawContract, setWithdrawContract] = useState(null);
     const [ethxContract, setEthxContract] = useState(null);
 
     const state = {
-        signer, setSigner, chainId, setChainId, ethBalance, setEthBalance, stakingContract, setStakingContract, withdrawContract, setWithdrawContract, ethxContract, setEthxContract
+        signer, setSigner, chainId, setChainId, ethBalance,
+        ethxBalance, setEthxBalance, setEthBalance, stakingContract, setStakingContract, withdrawContract, setWithdrawContract, ethxContract, setEthxContract
     }
 
     useEffect(() => {

@@ -1,10 +1,8 @@
 import React from 'react'
 import { useAppContext } from '../context/useAppContext'
-import { useSDK } from '@metamask/sdk-react'
 
 const Balance = () => {
-    const { chainId } = useSDK()
-    const { ethBalance } = useAppContext()
+    const { ethBalance, chainId, ethxBalance } = useAppContext()
     return (
         <>
             {ethBalance && chainId === "0x5" ?

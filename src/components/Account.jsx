@@ -2,7 +2,7 @@ import React from 'react'
 import { useAppContext } from '../context/useAppContext'
 
 const Account = () => {
-    const { signer } = useAppContext()
+    const { signer, chainId } = useAppContext()
     return (
         <>
             {signer &&
@@ -11,7 +11,7 @@ const Account = () => {
                         Wallet: {signer.address.slice(0, 10) + "...." + signer.address.slice(35,)}
                     </div>
                     <div className="chain">
-                        Chain: Goerli
+                        Chain: {chainId == "0x5" ? "Goerli" : <div style={{ color: "red" }}>Not supported</div>}
                     </div>
                 </div>}
         </>

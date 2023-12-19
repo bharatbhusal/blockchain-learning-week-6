@@ -5,7 +5,6 @@ import "./App.css";
 import Balance from './components/Balance';
 import Account from './components/Account';
 import { useAppContext } from './context/useAppContext';
-import { useSDK } from '@metamask/sdk-react';
 import ConnectWallet from './components/ConnectWallet';
 import { Signature } from 'ethers';
 // import Wallet from './components/Wallet';
@@ -16,7 +15,6 @@ const App = () => {
   const APPROVE_PATH = 'approve';
   const WITHDRAW_PATH = 'withdraw';
   const CLAIM_PATH = 'claim';
-  const { connected, chainId } = useSDK()
   const context = useAppContext()
 
   console.log(context)

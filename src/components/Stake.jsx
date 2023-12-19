@@ -1,22 +1,21 @@
 import React, { useRef, useState } from "react";
 import { ethers } from "ethers";
-
 import { toast } from "react-hot-toast";
 import { useAppContext } from "../context/useAppContext";
 
 
 const Stake = () => {
-    const { stakingContract, signer, ethBalance, ethxContract } = useAppContext();
+    const { stakingContract, signer, ethxBalance, ethBalance, setEthxBalance, ethxContract } = useAppContext();
     const stakeAmountRef = useRef();
     const [ethAmount, setEthAmount] = useState(0);
 
-    const { ethxBalance, setEthxBalance } = useState()
+    // const { ethxBalance, setEthxBalance } = useState()
 
     const handleAmountChange = async (e) => {
         const amount = e.target.value.trim();
         const amountToConvert = (amount * (1 / 1.015151)).toFixed(6);
         setEthAmount(amountToConvert);
-        setEthAmount(await ethxContract.balanceOf(signer.address))
+        setEthxBalance(await ethxContract.balanceOf(signer.address))
     };
 
 
