@@ -15,75 +15,75 @@ const Claim = () => {
     // Function to handle token claiming
     const claimToken = async (e) => {
         e.preventDefault();
-
-        // Retrieve the request ID from the input field
-        const requestID = claimAmountRef.current.value.trim();
-
-        // Validate the input request ID
-        if (isNaN(requestID) || requestID <= 0)
-        {
-            toast.error("Please enter a valid positive number.");
-            return;
-        }
-
         try
         {
-            // Claim tokens with the specified request ID
-            const transaction = await withdrawContract.claim(requestID);
+            // Retrieve the request ID from the input field
+            const requestID = claimAmountRef.current.value.trim();
 
-            // Display toast notification based on the claiming result
-            await toast.promise(transaction.wait(), {
+            // Validate the input request ID
+            if (isNaN(requestID) || requestID <= 0)
+                throw new Error("Please enter a valid positive number.");
+
+            if (!requestIds.split(",").includes(requestID))
+                throw new Error("Incorrect Request Id")
+            else if (finalizedRequestId <= requestID)
+                throw new Error("Request Id is not Finalized yet.")
+
+
+            claimAmountRef.current.value = "";
+            const claimPromise = new Promise(async (resolve, reject) => {
+                try
+                {
+                    const claiming = await withdrawContract.claim(requestID);
+                    const receipt = await claiming.wait()
+                    resolve(receipt)
+                } catch (error)
+                {
+                    reject(error);
+                }
+            })
+
+            // // Display toast notification based on the approval result
+            await toast.promise(claimPromise, {
                 loading: "Claim is pending...",
                 success: "Claim successful 👌",
                 error: "Claim failed 🤯",
             });
-
-            // Clear the input field after successful claiming
-            claimAmountRef.current.value = "";
-
-            // Update the list of request IDs after claiming
             await updateRequestIds();
+
         } catch (error)
         {
-            // Handle errors during the claiming process
-            console.log("requesttstca ", requestIds);
-
-            if (!requestIds.split(",").includes(requestID))
-            {
-                toast.error("Enter Correct Request Id 😡");
-            } else if (finalizedRequestId <= requestID)
-            {
-                toast.error("Request Id is not Finalized 🙅🏻");
-            } else
-            {
-                console.error(error.message);
-                toast.error("Claim Failed 🤯");
-            }
+            console.log(error.message)
+            toast.promise(error.message)
         }
     };
 
     return (
-        <form onSubmit={claimToken}>
-            {/* Input for entering request ID */}
-            <label>Enter Request ID</label>
-            <input type="text" ref={claimAmountRef} placeholder="0" />
+        <>
+            {withdrawContract &&
+                <form onSubmit={claimToken}>
+                    {/* Input for entering request ID */}
+                    <label>Enter Request ID</label>
+                    <input type="text" ref={claimAmountRef} placeholder="0" />
 
-            {/* Display list of request IDs if available */}
-            {requestIds.length >= 1 ? (
-                <div>
-                    <span>Request Id :</span>{' '}
-                    <span>{requestIds.split(",").reverse().join(",")}</span>
-                </div>
-            ) : (
-                <div className="mt-6"></div>
-            )}
+                    {/* Display list of request IDs if available */}
+                    {requestIds.length >= 1 ? (
+                        <div>
+                            <span>Request Id :</span>{' '}
+                            <span>{requestIds.split(",").reverse().join(",")}</span>
+                        </div>
+                    ) : (
+                        <div className="mt-6"></div>
+                    )}
 
-            {/* Instruction message */}
-            <div>"Claim only after your request ID is finalized."</div>
+                    {/* Instruction message */}
+                    <div>"Claim only after your request ID is finalized."</div>
 
-            {/* Button to trigger token claiming */}
-            <button type="submit">Claim</button>
-        </form>
+                    {/* Button to trigger token claiming */}
+                    <button type="submit">Claim</button>
+                </form>
+            }
+        </>
     );
 };
 
