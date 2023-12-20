@@ -24,6 +24,8 @@ const Claim = () => {
             if (isNaN(requestID) || requestID <= 0)
                 throw new Error("Please enter a valid positive number.");
 
+
+
             if (!requestIds.split(",").includes(requestID))
                 throw new Error("Incorrect Request Id")
             else if (finalizedRequestId <= requestID)
@@ -53,8 +55,8 @@ const Claim = () => {
 
         } catch (error)
         {
-            console.log(error.message)
-            toast.promise(error.message)
+            console.error(error.message)
+            toast.error(error.message)
         }
     };
 
