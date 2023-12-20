@@ -20,7 +20,6 @@ const App = () => {
       {text}
     </NavLink>
   )
-
   return (
     <>
       {/* Navigation */}
@@ -33,16 +32,16 @@ const App = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="container">
+      {window.ethereum !== null && <div className="container">
         <Account />
         {signer
           ?
           <Outlet />
           :
-          <div className="no_staking">"Connect to the wallet first"</div>
+          <div className="no_contracts">"Connect to the wallet first"</div>
         }
         <Balance />
-      </div>
+      </div>}
 
       {/* Toast Notifications */}
       <Toaster />

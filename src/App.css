@@ -64,9 +64,11 @@ button:disabled {
 
 /* Styling for the body */
 body {
+    background-color: #f5ebe0;
     font-family: "Poppins", sans-serif;
     line-height: 1.7;
     height: 100vh;
+    
 }
 
 /* Styling for the main container */
@@ -85,6 +87,8 @@ body {
     top: 2rem;
     border: 2px solid var(--color-button);
     border-radius: 3rem;
+    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+    background-color: #f6e0cf;
 }
 
 /* Styling for the navigation bar */
@@ -96,6 +100,7 @@ nav {
     transform: translateX(-50%);
     bottom: 2rem;
     border-radius: 3rem;
+    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Styling for the balance and account sections */
@@ -139,6 +144,8 @@ input {
     height: 3rem;
     border-radius: .5rem;
     padding-left: 1rem;
+    box-shadow: 5px 6px 4px rgba(0, 0, 0, 0.3);
+    margin-right: .5rem;
 }
 
 /* Styling for navigation buttons */
@@ -148,10 +155,7 @@ nav button {
     border-radius: 0;
 }
 
-.no_staking,
-.no_claiming,
-.no_approving,
-.no_withdrawing{
+.no_contracts{
     font-size: larger;
     font-weight: 800;
     top: 50%;

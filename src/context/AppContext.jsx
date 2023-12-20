@@ -80,19 +80,24 @@ export const AppContextProvider = ({ children }) => {
 
     // Effect to listen for changes in the connected Ethereum account and network
     useEffect(() => {
-        // Add listeners for account and chain changes
-        window.ethereum.on("accountChanged", () => handleSignerChange(setSigner));
-        window.ethereum.on("chainChanged", () => handleChainChange(setChainId));
+        try
+        {// Add listeners for account and chain changes
+            window.ethereum.on("accountChanged", () => handleSignerChange(setSigner));
+            window.ethereum.on("chainChanged", () => handleChainChange(setChainId));
 
-        // Cleanup: Remove listeners when the component unmounts
-        return () => {
-            window.ethereum.removeListener("accountChanged", () =>
-                handleSignerChange(setSigner)
-            );
-            window.ethereum.removeListener("chainChanged", () =>
-                handleChainChange(setChainId)
-            );
-        };
+            // Cleanup: Remove listeners when the component unmounts
+            return () => {
+                window.ethereum.removeListener("accountChanged", () =>
+                    handleSignerChange(setSigner)
+                );
+                window.ethereum.removeListener("chainChanged", () =>
+                    handleChainChange(setChainId)
+                );
+            };
+        } catch (error)
+        {
+            console.error(error.message)
+        }
     }, []);
 
     // Effect to create contract instances when the signer changes
