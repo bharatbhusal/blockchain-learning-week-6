@@ -1,8 +1,3 @@
-# blockchain-learning-week-6
-0xCommit Bootcamp - Audit and Security | Router Protocol Week 6
-
-
-
 # Stadar Liquid Staking Platform - React App
 
 Welcome to the Stadar Liquid Staking Platform React app! This app provides a user-friendly interface for staking Ethereum in the Goerli testnet.
@@ -31,7 +26,6 @@ The Stadar Liquid Staking Platform allows users to stake their Ethereum (ETH) in
 
    ```bash
    cd blockchain-learning-week-6
-   git checkout fresh-start
    npm install
    ```
 
@@ -42,6 +36,13 @@ The Stadar Liquid Staking Platform allows users to stake their Ethereum (ETH) in
    ```
 
 4. Open your browser and visit `http://localhost:3000` to use the app.
+
+## Technologies Used
+
+- **React:** A JavaScript library for building user interfaces.
+- **React Router DOM:** A library for adding navigation to a React application.
+- **React Context API:** A state management solution for React applications.
+- **Ethers.js:** A JavaScript library for interacting with the Ethereum blockchain.
 
 ## Interaction Flow
 
