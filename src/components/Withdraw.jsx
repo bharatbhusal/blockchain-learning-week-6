@@ -5,7 +5,7 @@ import { useAppContext } from "../context/useAppContext";
 
 const Withdraw = () => {
     // Accessing withdrawContract and signer from the AppContext
-    const { withdrawContract, signer, returnEthBalance, returnEthxBalance, ethxBalance } = useAppContext();
+    const { withdrawContract, signer, chainId, returnEthBalance, returnEthxBalance, ethxBalance } = useAppContext();
 
     // Using useRef to get the unstake amount input field
     const unstakeAmountRef = useRef();
@@ -22,6 +22,10 @@ const Withdraw = () => {
 
         try
         {
+
+            if (chainId !== "0x5")
+                throw new Error("Please switch to Goerli Network")
+
             // Retrieve the amount from the input field
             const amount = unstakeAmountRef.current.value.trim();
 

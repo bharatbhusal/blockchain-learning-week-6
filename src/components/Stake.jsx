@@ -26,7 +26,6 @@ const Stake = () => {
 
         try
         {
-
             if (chainId !== "0x5")
                 throw new Error("Please switch to Goerli Network")
 

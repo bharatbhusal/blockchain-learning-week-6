@@ -5,7 +5,7 @@ import { useAppContext } from "../context/useAppContext";
 
 const Approve = () => {
     // Accessing withdrawContract and ethxContract from the AppContext
-    const { withdrawContract, returnEthBalance, returnEthxBalance, ethxContract, ethxBalance, ethBalance } = useAppContext();
+    const { withdrawContract, returnEthBalance, returnEthxBalance, ethxContract, ethxBalance, chainId } = useAppContext();
 
     // Using useRef to get the approve amount input field
     const approveStakeAmountRef = useRef();
@@ -21,6 +21,10 @@ const Approve = () => {
 
         try
         {
+
+            if (chainId !== "0x5")
+                throw new Error("Please switch to Goerli Network")
+
             // Retrieve the amount from the input field
             const amount = approveStakeAmountRef.current.value.trim();
 

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { ethers } from "ethers";
 import { toast } from "react-hot-toast";
 import { useRequestIds } from "../utils/useRequestIds";
@@ -6,17 +6,26 @@ import { useAppContext } from "../context/useAppContext";
 
 const Claim = () => {
     // Accessing withdrawContract and request-related state from the AppContext
-    const { withdrawContract } = useAppContext();
+    const { withdrawContract, returnEthBalance, returnEthxBalance, chainId } = useAppContext();
     const { requestIds, finalizedRequestId, updateRequestIds } = useRequestIds();
 
     // Using useRef to get the claim amount input field
     const claimAmountRef = useRef();
+
+    useEffect(() => {
+        returnEthBalance()
+        returnEthxBalance()
+    }, [requestIds])
 
     // Function to handle token claiming
     const claimToken = async (e) => {
         e.preventDefault();
         try
         {
+
+            if (chainId !== "0x5")
+                throw new Error("Please switch to Goerli Network")
+
             // Retrieve the request ID from the input field
             const requestID = claimAmountRef.current.value.trim();
 
