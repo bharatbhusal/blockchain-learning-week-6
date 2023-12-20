@@ -84,7 +84,6 @@ export const AppContextProvider = ({ children }) => {
     // Effect to update the user's Ethereum balance when the signer changes
     useEffect(() => {
         const returnEthBalance = async () => {
-
             try
             {
                 // Fetch and format the Ethereum balance using the signer's provider

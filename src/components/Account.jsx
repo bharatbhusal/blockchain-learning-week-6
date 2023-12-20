@@ -6,7 +6,7 @@ const Account = () => {
     const { signer, chainId } = useAppContext();
 
     // Check if both signer and chainId are available before rendering
-    if (!signer || !chainId)
+    if (!signer)
     {
         return null;
     }

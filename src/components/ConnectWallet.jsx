@@ -4,7 +4,7 @@ import { useAppContext } from '../context/useAppContext';
 
 const ConnectWallet = () => {
     // Accessing setSigner and setChainId from the AppContext
-    const { setSigner, setChainId } = useAppContext();
+    const { signer, setSigner, setChainId } = useAppContext();
 
     // Function to retrieve the signer using the BrowserProvider
     const returnSigner = async () => {
@@ -63,13 +63,22 @@ const ConnectWallet = () => {
         }
     };
 
+    const disconnectWallet = () => {
+        setSigner(null)
+        setChainId(null)
+    }
+
     return (
         <div className='connection'>
             {/* Use camelCase for style properties */}
             {/* Button to trigger the connectWallet function */}
-            <button style={{ color: 'black' }} onClick={connectWallet}>
-                Connect
-            </button>
+            {!signer
+                ?
+                <button onClick={connectWallet}>
+                    Connect
+                </button>
+                :
+                <button onClick={disconnectWallet}>Disconnect</button>}
         </div>
     );
 };

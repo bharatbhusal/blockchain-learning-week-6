@@ -8,6 +8,7 @@ import { useAppContext } from './context/useAppContext'
 import "./App.css"
 
 const App = () => {
+  const { signer } = useAppContext()
   // Render the main navigation links
   const renderNavLink = (to, text) => (
     <NavLink
@@ -34,7 +35,12 @@ const App = () => {
       {/* Main Content */}
       <div className="container">
         <Account />
-        <Outlet />
+        {signer
+          ?
+          <Outlet />
+          :
+          <div className="no_staking">"Connect to the wallet first"</div>
+        }
         <Balance />
       </div>
 

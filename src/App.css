@@ -147,3 +147,12 @@ nav button {
     height: 100%;
     border-radius: 0;
 }
+
+.no_staking,
+.no_claiming,
+.no_approving,
+.no_withdrawing{
+    font-size: larger;
+    font-weight: 800;
+    top: 50%;
+}
