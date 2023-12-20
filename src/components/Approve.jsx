@@ -1,14 +1,19 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { ethers } from "ethers";
 import { toast } from "react-hot-toast";
 import { useAppContext } from "../context/useAppContext";
 
 const Approve = () => {
     // Accessing withdrawContract and ethxContract from the AppContext
-    const { withdrawContract, ethxContract } = useAppContext();
+    const { withdrawContract, returnEthBalance, returnEthxBalance, ethxContract, ethxBalance, ethBalance } = useAppContext();
 
     // Using useRef to get the approve amount input field
     const approveStakeAmountRef = useRef();
+
+    useEffect(() => {
+        returnEthBalance()
+        returnEthxBalance()
+    }, [])
 
     // Function to handle token approval
     const approveToken = async (e) => {
@@ -21,55 +26,62 @@ const Approve = () => {
 
             // Validate the input amount
             if (isNaN(amount) || amount <= 0)
-            {
-                toast.error("Please enter a valid positive number.");
-                return;
-            }
+                throw new Error("Please enter a valid positive number.");
+
+            if (ethxBalance <= amount)
+                throw new Error("Insufficient ETHx balance")
 
             // Convert the input amount to the appropriate format
             const amountToApprove = ethers.parseUnits(amount, 18).toString();
 
-            // Approve the specified amount with the ethxContract
-            const approval = await ethxContract.approve(
-                withdrawContract.target,
-                amountToApprove
-            );
+            approveStakeAmountRef.current.value = "";
+            const approvePromise = new Promise(async (resolve, reject) => {
+                try
+                {
+                    const approving = await ethxContract.approve(
+                        withdrawContract.target,
+                        amountToApprove
+                    );
+                    const receipt = await approving.wait()
+                    resolve(receipt)
+                } catch (error)
+                {
+                    reject(error);
+                }
+            })
 
-            // Display toast notification based on the approval result
-            await toast.promise(approval.wait(), {
+
+            // // Display toast notification based on the approval result
+            await toast.promise(approvePromise, {
                 loading: "Approval is pending...",
                 success: "Approval successful 👌",
                 error: "Approval failed 🤯",
             });
 
-            // Clear the input field after successful approval
-            approveStakeAmountRef.current.value = "";
         } catch (error)
         {
             // Handle errors during the approval process
-            if (ethxContract == null)
-            {
-                toast.error("Connect To Wallet First");
-            } else
-            {
-                console.error(error.message);
-                toast.error("Approval Failed");
-            }
+            console.error(error.message);
+            toast.error(error.message);
         }
     };
 
     return (
-        <form onSubmit={approveToken}>
-            {/* Input for entering approve amount */}
-            <label>Enter ETHx amount</label>
-            <input type="text" ref={approveStakeAmountRef} placeholder="0.0" />
+        <>
+            {ethxContract &&
+                <form onSubmit={approveToken}>
+                    {/* Input for entering approve amount */}
+                    <label>Enter ETHx amount</label>
+                    <input type="text" ref={approveStakeAmountRef} placeholder="0.0" />
 
-            {/* Instruction message */}
-            <div>"AFTER APPROVAL ONLY YOU CAN UNSTAKE YOUR TOKEN"</div>
+                    {/* Instruction message */}
+                    <div>"AFTER APPROVAL ONLY YOU CAN UNSTAKE YOUR TOKEN"</div>
 
-            {/* Button to trigger token approval */}
-            <button type="submit">Approve</button>
-        </form>
+                    {/* Button to trigger token approval */}
+                    <button type="submit">Approve</button>
+                </form>
+            }
+        </>
     );
 };
 

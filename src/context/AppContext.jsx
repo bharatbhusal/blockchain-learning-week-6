@@ -28,6 +28,36 @@ export const AppContextProvider = ({ children }) => {
     // State to manage the ETHx contract instance
     const [ethxContract, setEthxContract] = useState(null);
 
+    const returnEthBalance = async () => {
+        try
+        {
+            // Fetch and format the Ethereum balance using the signer's provider
+            setEthBalance(ethers.formatEther(await signer.provider.getBalance(signer.address)));
+        } catch (error)
+        {
+            console.error(error.message)
+        }
+    };
+
+
+    const returnEthxBalance = async () => {
+        // Create a contract instance for the ETHx token using the signer
+        const contract = new Contract(
+            "0x3338eCd3ab3d3503c55c931d759fA6d78d287236",
+            ethxAbi,
+            signer
+        );
+
+        // console.log(signer.address);
+        try
+        {
+            // Fetch and format the ETHx balance using the contract instance
+            setEthxBalance(ethers.formatEther(await contract.balanceOf(signer.address)));
+        } catch (error)
+        {
+            console.error(error.message)
+        }
+    };
     // Object containing the app's state values
     const state = {
         signer,
@@ -44,6 +74,8 @@ export const AppContextProvider = ({ children }) => {
         setWithdrawContract,
         ethxContract,
         setEthxContract,
+        returnEthBalance,
+        returnEthxBalance
     };
 
     // Effect to listen for changes in the connected Ethereum account and network
@@ -82,42 +114,16 @@ export const AppContextProvider = ({ children }) => {
     }, [signer]);
 
     // Effect to update the user's Ethereum balance when the signer changes
-    useEffect(() => {
-        const returnEthBalance = async () => {
-            try
-            {
-                // Fetch and format the Ethereum balance using the signer's provider
-                setEthBalance(ethers.formatEther(await signer.provider.getBalance(signer.address)));
-            } catch (error)
-            {
-                console.error(error.message)
-            }
-        };
 
+
+    useEffect(() => {
         // Call the function to update the Ethereum balance
         returnEthBalance();
     }, [signer]);
 
     // Effect to update the user's ETHx token balance when the ETHx contract changes
-    useEffect(() => {
-        const returnEthxBalance = async () => {
-            // Create a contract instance for the ETHx token using the signer
-            const contract = new Contract(
-                "0x3338eCd3ab3d3503c55c931d759fA6d78d287236",
-                ethxAbi,
-                signer
-            );
 
-            // console.log(signer.address);
-            try
-            {
-                // Fetch and format the ETHx balance using the contract instance
-                setEthxBalance(ethers.formatEther(await contract.balanceOf(signer.address)));
-            } catch (error)
-            {
-                console.error(error.message)
-            }
-        };
+    useEffect(() => {
 
         // Check if the ETH balance is not null before updating ETHx balance
         if (!ethBalance) returnEthxBalance();

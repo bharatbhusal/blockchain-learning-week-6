@@ -79,7 +79,7 @@ const Stake = () => {
 
     return (
         <>
-            {stakingContract && signer ? < form >
+            {stakingContract && < form onSubmit={stakeToken}>
                 {/* Input for entering stake amount */}
                 < label > Enter ETH amount</label >
                 <input
@@ -96,11 +96,10 @@ const Stake = () => {
                 <div className="rate">1 ETHx = 1.015151 ETH</div>
 
                 {/* Button to trigger staking */}
-                <button onClick={stakeToken} type="submit">
+                <button type="submit">
                     Stake
                 </button>
             </form >
-                : <div className="no_staking">"Connect to the wallet first"</div>
             }
         </>
 
