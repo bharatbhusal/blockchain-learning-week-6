@@ -27,9 +27,15 @@ export const useRequestIds = () => {
 
   // Function to update requestIds on component mount and when dependencies change
   const updateRequestIds = async () => {
-    if (withdrawContract && signer.address)
+    try
     {
-      await fetchRequestIds();
+      if (withdrawContract && signer.address)
+      {
+        await fetchRequestIds();
+      }
+    } catch (error)
+    {
+      console.error(error.message)
     }
   };
 

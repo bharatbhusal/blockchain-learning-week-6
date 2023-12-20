@@ -84,10 +84,15 @@ export const AppContextProvider = ({ children }) => {
     // Effect to update the user's Ethereum balance when the signer changes
     useEffect(() => {
         const returnEthBalance = async () => {
-            // Fetch and format the Ethereum balance using the signer's provider
-            setEthBalance(
-                ethers.formatEther(await signer.provider.getBalance(signer.address))
-            );
+
+            try
+            {
+                // Fetch and format the Ethereum balance using the signer's provider
+                setEthBalance(ethers.formatEther(await signer.provider.getBalance(signer.address)));
+            } catch (error)
+            {
+                console.error(error.message)
+            }
         };
 
         // Call the function to update the Ethereum balance
@@ -104,12 +109,15 @@ export const AppContextProvider = ({ children }) => {
                 signer
             );
 
-            console.log(signer.address);
-
-            // Fetch and format the ETHx balance using the contract instance
-            setEthxBalance(
-                ethers.formatEther(await contract.balanceOf(signer.address))
-            );
+            // console.log(signer.address);
+            try
+            {
+                // Fetch and format the ETHx balance using the contract instance
+                setEthxBalance(ethers.formatEther(await contract.balanceOf(signer.address)));
+            } catch (error)
+            {
+                console.error(error.message)
+            }
         };
 
         // Check if the ETH balance is not null before updating ETHx balance
