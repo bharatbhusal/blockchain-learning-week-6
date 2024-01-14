@@ -3,160 +3,165 @@
 
 /* Resetting default styles and applying global styles */
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    position: relative;
-    box-sizing: border-box;
-    list-style: none;
-    text-decoration: none;
-    overflow: hidden;
-    transition: all 400ms ease;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  position: relative;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 400ms ease;
 }
 
 /* Defining CSS custom properties for color palette */
 :root {
-    --color-bg: rgba(19, 19, 19, 0.95);
-    --color-bg-secondary: rgba(81, 235, 137, 0.16);
-    --color-primary: #3CCC63;
-    --color-secondary: #191919;
-    --color-button: #3CCC63;
-    --color-disabled-button: #86a18e;
-    --color-danger-button: rgb(221, 61, 61);
-    --color-border: #fff;
-    --color-black: #000;
-    --color-white: rgb(230, 239, 230);
+  --color-bg: rgba(19, 19, 19, 0.95);
+  --color-bg-secondary: rgba(81, 235, 137, 0.16);
+  --color-primary: #3ccc63;
+  --color-secondary: #191919;
+  --color-button: #3ccc63;
+  --color-disabled-button: #86a18e;
+  --color-danger-button: rgb(221, 61, 61);
+  --color-border: #fff;
+  --color-black: #000;
+  --color-white: rgb(230, 239, 230);
 }
 
 /* Hiding the scrollbar in webkit browsers */
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* Styling links */
 :-webkit-any-link {
-    color: var(--color-white);
-    font-size: medium;
-    padding: 1.1em;
+  color: var(--color-white);
+  font-size: medium;
+  padding: 1.1em;
 }
 
 /* Styling for active navigation link */
 .active {
-    background-color: var(--color-button);
+  background-color: var(--color-button);
 }
 
 /* Styling for general buttons */
 button {
-    padding: 1rem;
-    font-size: 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: var(--color-button);
-    color: var(--color-black);
+  padding: 1rem;
+  font-size: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: var(--color-button);
+  color: var(--color-black);
 }
 
 /* Styling for disabled buttons */
 button:disabled {
-    background-color: var(--color-disabled-button);
-    color: var(--color-white);
+  background-color: var(--color-disabled-button);
+  color: var(--color-white);
 }
 
 /* Styling for the body */
 body {
-    background-color: #f5ebe0;
-    font-family: "Poppins", sans-serif;
-    line-height: 1.7;
-    height: 100vh;
-    
+  background-color: #f5ebe0;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.7;
+  height: 100vh;
 }
 
 /* Styling for the main container */
 .container {
-    width: 80%;
-    max-width: 30rem;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.8rem;
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 2rem;
-    border: 2px solid var(--color-button);
-    border-radius: 3rem;
-    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
-    background-color: #f6e0cf;
+  width: 80%;
+  max-width: 30rem;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.8rem;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 2rem;
+  border: 2px solid var(--color-button);
+  border-radius: 3rem;
+  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+  background-color: #f6e0cf;
 }
 
 /* Styling for the navigation bar */
 nav {
-    background: var(--color-secondary);
-    display: flex;
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 2rem;
-    border-radius: 3rem;
-    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+  background: var(--color-secondary);
+  display: flex;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 2rem;
+  border-radius: 3rem;
+  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+  width: 20rem;
+  z-index: 1;
 }
 
 /* Styling for the balance and account sections */
-.balance, .account {
-    background-color: var(--color-bg-secondary);
-    display: flex;
-    width: 120%;
-    height: 10%;
-    bottom: -1rem;
-    justify-content: space-between;
-    align-items:center;
+.balance,
+.account {
+  background-color: var(--color-bg-secondary);
+  display: flex;
+  width: 120%;
+  height: 10%;
+  bottom: -1rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Additional styling for the account section */
 .account {
-    top: -1rem;
-    bottom: 0;
+  top: -1rem;
+  bottom: 0;
 }
 
 /* Styling for elements inside the balance and account sections */
-.eth-balance, .ethx-balance, .wallet, .chain {
-    margin: 0 10%;
+.eth-balance,
+.ethx-balance,
+.wallet,
+.chain {
+  margin: 0 10%;
 }
 
 /* Styling for form elements */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 /* Styling for form labels */
 label {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 /* Styling for form inputs */
 input {
-    font-size: 1rem;
-    background-color: var(--color-bg-secondary);
-    height: 3rem;
-    border-radius: .5rem;
-    padding-left: 1rem;
-    box-shadow: 5px 6px 4px rgba(0, 0, 0, 0.3);
-    margin-right: .5rem;
+  font-size: 1rem;
+  background-color: var(--color-bg-secondary);
+  height: 3rem;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  box-shadow: 5px 6px 4px rgba(0, 0, 0, 0.3);
+  margin-right: 0.5rem;
 }
 
 /* Styling for navigation buttons */
 nav button {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
 }
 
-.no_contracts{
-    font-size: larger;
-    font-weight: 800;
-    top: 50%;
+.no_contracts {
+  font-size: larger;
+  font-weight: 800;
+  top: 50%;
 }

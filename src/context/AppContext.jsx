@@ -140,7 +140,6 @@ export const AppContextProvider = ({ children }) => {
         const newSigner = await window.ethereum.request({
             method: "eth_requestAccounts",
         });
-
         // Set the new signer in the state
         setSigner(newSigner);
     };

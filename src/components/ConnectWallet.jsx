@@ -57,6 +57,7 @@ const ConnectWallet = () => {
             // Set the retrieved chain ID and signer in the AppContext
             setChainId(chainId);
             setSigner(signer);
+            // console.log(signer)
         } catch (error)
         {
             console.error(error.message);
