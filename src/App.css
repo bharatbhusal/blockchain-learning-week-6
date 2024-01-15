@@ -97,11 +97,16 @@ nav {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 2rem;
+  bottom: 1rem;
   border-radius: 3rem;
   box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
-  width: 20rem;
+  /* width: 20rem; */
+  max-width: 30rem;
   z-index: 1;
+  justify-content: space-around;
+  align-items: center;
+  height: 2.5rem;
+  width: 90%;
 }
 
 /* Styling for the balance and account sections */
